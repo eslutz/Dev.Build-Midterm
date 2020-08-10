@@ -113,7 +113,7 @@ namespace Midterm
 			{
 				fullCast = "No cast available.";
 			}
-			return $"{Title,-40}{Genre,-12}{Director,-20}{ReleaseYear,-6}{Runtime,-6}{fullCast,-66}{Description}";
+			return $"{Title,-40}|{Genre,-12}|{Director,-20}|{Runtime,-8}|{ReleaseYear,-6}|{fullCast,-66}|{Description}";
 		}
 
 		public static void AddMovie(Movie newMovie)

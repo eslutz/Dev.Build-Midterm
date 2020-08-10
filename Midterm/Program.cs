@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+
 
 namespace Midterm
 {
@@ -8,16 +8,55 @@ namespace Midterm
 	{
 		static void Main(string[] args)
 		{
+			Console.SetWindowSize(275, 75);
+			Console.Title = "Dev.Build(4.0) Movie Listing Mania!";
 			GenerateDefaultMovieList();
+			ShowMovies();
 			ShowMenu();
 		}
 
-		public static void ShowMenu()
+		public static void ShowMovies()
 		{
-			for(int index = 0; index < Movie.MovieList.Count; index++)
+			Console.WriteLine("Welcome to the Dev.Build(4.0) Movie Listing Mania!\n");
+			Console.WriteLine($"{"",-4}{"Title",-40}|{"Genre",-12}|{"Director",-20}|{"Runtime",-8}|{"Year",-6}|{"Cast",-66}|{"Description"}");
+			Console.WriteLine($"{new string('*',44)}|{new string('*',12)}|{new string('*',20)}|{new string('*',8)}|{new string('*',6)}|{new string('*',66)}|{new string('*',40)}");
+			for (int index = 0; index < Movie.MovieList.Count; index++)
 			{
-				Console.WriteLine(Movie.MovieList[index]);
+				//Console.WriteLine($"{$"{index + 1}.",-4}{Movie.MovieList[index]}");
+				if(index % 2 == 0)
+				{
+					Console.ForegroundColor = ConsoleColor.Cyan;
+					Console.WriteLine($"{$"{index + 1}.",-4}{Movie.MovieList[index]}");
+					Console.ResetColor();
+				}
+				else
+				{
+					Console.WriteLine($"{$"{index + 1}.",-4}{Movie.MovieList[index]}");
+				}
 			}
+			Console.WriteLine($"{new string('*', 202)}\n\n");
+		}
+
+		public static int ShowMenu()
+		{
+			Console.WriteLine("Pick an option:");
+			Console.WriteLine($"{new string('-', 28)}");
+			Console.WriteLine($"{$"1.",-4}{"Sort Movies"}");
+			Console.WriteLine($"{$"2.",-4}{"Search Movies"}");
+			Console.WriteLine($"{$"3.",-4}{"Admin (add/edit/remove)"}");
+			Console.WriteLine($"{$"4.",-4}{"Quit"}");
+			Console.WriteLine($"{new string('-', 28)}");
+			Console.Write($"{"=>",-4}");
+			bool isValid = int.TryParse(Console.ReadLine(), out int option);
+			while (!isValid || !(option >= 1 && option <= 4))
+			{
+				Console.SetCursorPosition(0, Movie.MovieList.Count + 14);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, Movie.MovieList.Count+6);
+				Console.WriteLine("That is not a valid option.");
+				return ShowMenu();
+			}
+			return option;
 		}
 	
 		//Generates a list of movies and returns the list.
