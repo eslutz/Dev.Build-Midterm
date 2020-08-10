@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Midterm
@@ -19,9 +20,12 @@ namespace Midterm
 	{
 		//Private fields.
 		private string _title;
-		private string _mainActor;
+		private List<string> _cast;
 		private MovieGenre _genre;
 		private string _director;
+		private int _runtime;
+		private int _releaseYear;
+		private string _description;
 
 		//Properties.
 		public string Title
@@ -30,10 +34,10 @@ namespace Midterm
 			private set { _title = value; }
 		}
 
-		public string MainActor
+		public List<string> Cast
 		{
-			get { return _mainActor; }
-			private set { _mainActor = value; }
+			get { return _cast; }
+			private set { _cast = value; }
 		}
 
 		public MovieGenre Genre
@@ -48,13 +52,53 @@ namespace Midterm
 			private set { _director = value; }
 		}
 
+		public int Runtime
+		{
+			get { return _runtime; }
+			private set { _runtime = value; }
+		}
+
+		public int ReleaseYear
+		{
+			get { return _releaseYear; }
+			private set { _releaseYear = value; }
+		}
+
+		public string Description
+		{
+			get { return _description; }
+			private set { _description = value; }
+		}
+
 		//Constructor.
-		public Movie(string title, string actor, MovieGenre genre, string director)
+		public Movie(string title, MovieGenre genre, string director, int runtimeMinutes, int releaseYear, List<string> cast, string description)
 		{
 			Title = title;
-			MainActor = actor;
 			Genre = genre;
 			Director = director;
+			Runtime = runtimeMinutes;
+			ReleaseYear = releaseYear;
+			Cast = cast;
+			Description = description;
+		}
+
+		//Methods.
+		public override string ToString()
+		{
+			string fullCast = "";
+			if (Cast.Count > 1)
+			{
+				for (int index = 0; index < Cast.Count - 1; index++)
+				{
+					fullCast += $"{Cast[index]}, ";
+				}
+				fullCast += $"& {Cast[Cast.Count - 1]}";
+			}
+			else
+			{
+				fullCast += Cast[0];
+			}
+			return $"{Title,-40}{Genre,-12}{Director,-12}{Runtime,-6}{ReleaseYear,-6}{fullCast}\t{Description}";
 		}
 	}
 }
