@@ -19,6 +19,7 @@ namespace Midterm
 	public class Movie
 	{
 		//Private fields.
+		private static List<Movie> _movieList = new List<Movie>();
 		private string _title;
 		private MovieGenre _genre;
 		private string _director;
@@ -28,6 +29,12 @@ namespace Midterm
 		private string _description;
 
 		//Properties.
+		public static List<Movie> MovieList
+		{
+			get { return _movieList; }
+			private set { _movieList = value; }
+		}
+
 		public string Title
 		{
 			get { return _title; }
@@ -107,6 +114,11 @@ namespace Midterm
 				fullCast = "No cast available.";
 			}
 			return $"{Title,-40}{Genre,-12}{Director,-20}{ReleaseYear,-6}{Runtime,-6}{fullCast,-66}{Description}";
+		}
+
+		public static void AddMovie(Movie newMovie)
+		{
+			MovieList.Add(newMovie);
 		}
 	}
 }
