@@ -1,0 +1,13 @@
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\obj\Debug\netcoreapp3.1\Midterm.csprojAssemblyReference.cache
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\obj\Debug\netcoreapp3.1\Midterm.AssemblyInfoInputs.cache
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\obj\Debug\netcoreapp3.1\Midterm.AssemblyInfo.cs
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\obj\Debug\netcoreapp3.1\Midterm.csproj.CoreCompileInputs.cache
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\bin\Debug\netcoreapp3.1\Midterm.exe
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\bin\Debug\netcoreapp3.1\Midterm.deps.json
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\bin\Debug\netcoreapp3.1\Midterm.runtimeconfig.json
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\bin\Debug\netcoreapp3.1\Midterm.runtimeconfig.dev.json
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\bin\Debug\netcoreapp3.1\Midterm.dll
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\bin\Debug\netcoreapp3.1\Midterm.pdb
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\obj\Debug\netcoreapp3.1\Midterm.dll
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\obj\Debug\netcoreapp3.1\Midterm.pdb
+C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\obj\Debug\netcoreapp3.1\Midterm.genruntimeconfig.cache
