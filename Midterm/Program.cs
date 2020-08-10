@@ -11,8 +11,14 @@ namespace Midterm
 			Console.SetWindowSize(275, 75);
 			Console.Title = "Dev.Build(4.0) Movie Listing Mania!";
 			GenerateDefaultMovieList();
-			ShowMovies();
-			ShowMenu();
+			int userChoice;
+			do
+			{
+				ShowMovies();
+				userChoice = ShowMenu();
+				Console.Clear();
+			} while (userChoice != 4);
+			Console.WriteLine("Thanks for going though the Movie Listing Mania!");
 		}
 
 		public static void ShowMovies()
