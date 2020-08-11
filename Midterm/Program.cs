@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Midterm
 {
@@ -233,7 +234,91 @@ namespace Midterm
 
 		public static void AdminAddMovie(MovieTheater theater)
 		{
-
+			Regex castValidation = new Regex(@"^(([A-Za-z]+(\s[A-Za-z]+)?,\s){0,2}[A-Za-z]+(\s[A-Za-z]+)?)$");
+			string[] genres = Enum.GetNames(typeof(MovieGenre));
+			string allGenres = "";
+			for (int index = 0; index < genres.Length - 1; index++)
+			{
+				allGenres += $"{genres[index]}/";
+			}
+			allGenres += genres[genres.Length - 1];
+			Console.WriteLine("Enter the movie title.");
+			Console.Write($"{"=>",-4}");
+			string title = Console.ReadLine();
+			Console.WriteLine($"\nEnter the movie genre ({allGenres}).");
+			Console.Write($"{"=>",-4}");
+			string genre = Console.ReadLine().ToLower();
+			while (!allGenres.ToLower().Contains(genre))
+			{
+				Console.SetCursorPosition(0, 2);
+				Console.Write("That is not a valid option.");
+				Console.SetCursorPosition(0, 4);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 4);
+				Console.Write($"{"=>",-4}");
+				genre = Console.ReadLine().ToLower();
+			}
+			Console.SetCursorPosition(0, 2);
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.SetCursorPosition(0, 5);
+			Console.WriteLine($"\nEnter the movie director.");
+			Console.Write($"{"=>",-4}");
+			string director = Console.ReadLine();
+			Console.WriteLine("\nEnter the release year:");
+			Console.Write($"{"=>",-4}");
+			bool isValid = int.TryParse(Console.ReadLine(), out int year);
+			while (!isValid || year < 1895)
+			{
+				if (isValid && year < 1895)
+				{
+					Console.SetCursorPosition(0, 8);
+					Console.Write("The release year must be after the first film in 1895.");
+					Console.SetCursorPosition(0, 10);
+					Console.Write(new string(' ', Console.WindowWidth));
+					Console.SetCursorPosition(0, 10);
+					Console.Write($"{"=>",-4}");
+					isValid = int.TryParse(Console.ReadLine(), out year);
+				}
+				else
+				{
+					Console.SetCursorPosition(0, 8);
+					Console.Write("That is not a valid option.");
+					Console.SetCursorPosition(0, 10);
+					Console.Write(new string(' ', Console.WindowWidth));
+					Console.SetCursorPosition(0, 10);
+					Console.Write($"{"=>",-4}");
+					isValid = int.TryParse(Console.ReadLine(), out year);
+				}
+				Console.SetCursorPosition(0, 8);
+				Console.Write(new string(' ', Console.WindowWidth));
+			}
+			Console.SetCursorPosition(0, 11);
+			Console.WriteLine("\nEnter the movie runtime (in minutes).");
+			Console.Write($"{"=>",-4}");
+			isValid = int.TryParse(Console.ReadLine(), out int runtime);
+			while (!isValid || runtime <= 0)
+			{
+				Console.SetCursorPosition(0, 11);
+				Console.Write("That is not a valid option.");
+				Console.SetCursorPosition(0, 13);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 13);
+				Console.Write($"{"=>",-4}");
+				isValid = int.TryParse(Console.ReadLine(), out runtime);
+			}
+			Console.WriteLine("\nEnter up to three cast members (cast1, cast2, cast3).");
+			Console.Write($"{"=>",-4}");
+			string cast = Console.ReadLine();
+			while (!castValidation.IsMatch(cast))
+			{
+				Console.SetCursorPosition(0, 15);
+				Console.Write("That is not a valid option.");
+				Console.SetCursorPosition(0, 17);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 17);
+				Console.Write($"{"=>",-4}");
+				cast = Console.ReadLine();
+			}
 		}
 
 		public static void AdminEditMovie(MovieTheater theater)
