@@ -18,7 +18,7 @@ namespace Midterm
 
 		public void RemoveMovie(int index)
 		{
-			_movieList.RemoveAt(index);
+			_movieList.RemoveAt(index-1);
 		}
 
 		public int MovieCount()

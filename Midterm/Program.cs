@@ -77,11 +77,13 @@ namespace Midterm
 			bool isValid = int.TryParse(Console.ReadLine(), out int option);
 			while (!isValid || !(option >= 1 && option <= 4))
 			{
-				Console.SetCursorPosition(0, theater.MovieCount() + 14);
-				Console.Write(new string(' ', Console.WindowWidth));
 				Console.SetCursorPosition(0, theater.MovieCount() + 6);
 				Console.WriteLine("That is not a valid option.");
-				return ShowMenu(theater);
+				Console.SetCursorPosition(0, theater.MovieCount() + 14);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, theater.MovieCount() + 14);
+				Console.Write($"{"=>",-4}");
+				isValid = int.TryParse(Console.ReadLine(), out option);
 			}
 			return option;
 		}
@@ -212,19 +214,55 @@ namespace Midterm
 				Console.Write($"{"=>",-4}");
 				isValid = int.TryParse(Console.ReadLine(), out option);
 			}
+			Console.Clear();
 			switch (option)
 			{
 				case 1:
-					
+					AdminAddMovie(theater);
 					break;
 				case 2:
-					
+					AdminEditMovie(theater);
 					break;
 				case 3:
-					
+					AdminRemoveMovie(theater);
 					break;
 				case 4:
 					break;
+			}
+		}
+
+		public static void AdminAddMovie(MovieTheater theater)
+		{
+
+		}
+
+		public static void AdminEditMovie(MovieTheater theater)
+		{
+
+		}
+
+		public static void AdminRemoveMovie(MovieTheater theater)
+		{
+			ShowMovies(theater);
+			if (theater.MovieCount() != 0)
+			{
+				Console.Write($"Which movie would you like to remove (1 - {theater.MovieCount()})? ");
+				bool isValid = int.TryParse(Console.ReadLine(), out int option);
+				while (!isValid || !(option >= 1 && option <= theater.MovieCount()))
+				{
+					Console.SetCursorPosition(0, theater.MovieCount() + 6);
+					Console.WriteLine("That is not a valid option.");
+					Console.SetCursorPosition(0, theater.MovieCount() + 7);
+					Console.Write(new string(' ', Console.WindowWidth));
+					Console.SetCursorPosition(0, theater.MovieCount() + 7);
+					Console.Write($"Which movie would you like to remove (1 - {theater.MovieCount()})? ");
+					isValid = int.TryParse(Console.ReadLine(), out option);
+				}
+				theater.RemoveMovie(option);
+			}
+			else
+			{
+				Console.WriteLine("Sorry, there are no movies available to remove.");
 			}
 		}
 	}

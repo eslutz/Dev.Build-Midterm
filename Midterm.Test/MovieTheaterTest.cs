@@ -38,7 +38,7 @@ namespace Midterm.Test
 		{
 			MovieTheater test = new MovieTheater();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
-			test.RemoveMovie(0);
+			test.RemoveMovie(1);
 			
 			Assert.Equal(0, test.MovieCount());
 		}
