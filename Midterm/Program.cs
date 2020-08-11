@@ -306,24 +306,54 @@ namespace Midterm
 				Console.Write($"{"=>",-4}");
 				isValid = int.TryParse(Console.ReadLine(), out runtime);
 			}
+			Console.SetCursorPosition(0, 14);
 			Console.WriteLine("\nEnter up to three cast members (cast1, cast2, cast3).");
 			Console.Write($"{"=>",-4}");
 			string cast = Console.ReadLine();
 			while (!castValidation.IsMatch(cast))
 			{
-				Console.SetCursorPosition(0, 15);
+				Console.SetCursorPosition(0, 14);
 				Console.Write("That is not a valid option.");
-				Console.SetCursorPosition(0, 17);
+				Console.SetCursorPosition(0, 16);
 				Console.Write(new string(' ', Console.WindowWidth));
-				Console.SetCursorPosition(0, 17);
+				Console.SetCursorPosition(0, 16);
 				Console.Write($"{"=>",-4}");
 				cast = Console.ReadLine();
 			}
+			List<string> movieCast = cast.Split(", ").ToList();
+			Console.SetCursorPosition(0, 14);
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.SetCursorPosition(0, 17);
+			Console.WriteLine("\nEnter the movie description.");
+			Console.Write($"{"=>",-4}");
+			string description = Console.ReadLine();
+			theater.AddMovie(new Movie(title, (MovieGenre)Enum.Parse(typeof(MovieGenre), genre, true), director, year, runtime, movieCast, description));
 		}
 
 		public static void AdminEditMovie(MovieTheater theater)
 		{
+			ShowMovies(theater);
+			if (theater.MovieCount() != 0)
+			{
+				Console.Write($"Which movie would you like to edit (1 - {theater.MovieCount()})? ");
+				bool isValid = int.TryParse(Console.ReadLine(), out int option);
+				while (!isValid || !(option >= 1 && option <= theater.MovieCount()))
+				{
+					Console.SetCursorPosition(0, theater.MovieCount() + 6);
+					Console.WriteLine("That is not a valid option.");
+					Console.SetCursorPosition(0, theater.MovieCount() + 7);
+					Console.Write(new string(' ', Console.WindowWidth));
+					Console.SetCursorPosition(0, theater.MovieCount() + 7);
+					Console.Write($"Which movie would you like to edit (1 - {theater.MovieCount()})? ");
+					isValid = int.TryParse(Console.ReadLine(), out option);
+				}
 
+
+			}
+			else
+			{
+				Console.WriteLine("Sorry, there are no movies available to edit.");
+			}
 		}
 
 		public static void AdminRemoveMovie(MovieTheater theater)
