@@ -32,5 +32,6 @@ namespace Midterm.Test
 
 			Assert.IsType<Movie>(test.GetMovie(0));
 		}
+
 	}
 }
