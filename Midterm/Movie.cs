@@ -108,5 +108,38 @@ namespace Midterm
 			}
 			return $"{Title,-40}|{Genre,-12}|{Director,-20}|{Runtime,-8}|{ReleaseYear,-6}|{fullCast,-66}|{Description}";
 		}
+
+		public void EditMovie(string selectedField, string newValue)
+		{
+			switch (selectedField)
+			{
+				case "title":
+					Title = newValue;
+					break;
+				case "genre":
+					Genre = (MovieGenre)Enum.Parse(typeof(MovieGenre), newValue);
+					break;
+				case "director":
+					Director = newValue;
+					break;
+				case "runtime":
+					Runtime = int.Parse(newValue);
+					break;
+				case "year":
+					ReleaseYear = int.Parse(newValue);
+					break;
+				case "cast":
+					Cast.Clear();
+					string[] newCast = newValue.Split(", ");
+					foreach(string castMember in newCast)
+					{
+						Cast.Add(castMember);
+					}
+					break;
+				case "description":
+					Description = newValue;
+					break;
+			}
+		}
 	}
 }

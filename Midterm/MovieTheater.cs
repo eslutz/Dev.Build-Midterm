@@ -16,6 +16,11 @@ namespace Midterm
 			_movieList.Add(newMovie);
 		}
 
+		public void RemoveMovie(int index)
+		{
+			_movieList.RemoveAt(index);
+		}
+
 		public int MovieCount()
 		{
 			return _movieList.Count;
