@@ -17,19 +17,21 @@ namespace Midterm
 			{
 				ShowMovies(theater);
 				int userChoice = ShowMenu(theater);
+				Console.Clear();
+				Console.WriteLine();
 				switch (userChoice)
 				{
 					//Sort movies.
 					case 1:
-
+						SortMovies(theater);
 						break;
 					//Search movies.
 					case 2:
-
+						SearchMovies(theater);
 						break;
 					//Admin (add/edit/remove).
 					case 3:
-
+						Admin(theater);
 						break;
 					//Quit the program.
 					case 4:
@@ -137,6 +139,93 @@ namespace Midterm
 			theater.AddMovie(new Movie("Serenity", MovieGenre.SciFi, "Joss Whedon", 2005, 118, new List<string> { "Nathan Fillion", "Summer Glau", "Adam Baldwin" }, "I aim to misbehave."));
 			theater.AddMovie(new Movie("Shaun of the Dead", MovieGenre.Comedy, "Edgar Wright", 2004, 99, new List<string> { "Simon Pegg", "Nick Frost" }, "Zombies are going to get you in London."));
 			theater.AddMovie(new Movie("The Watch", MovieGenre.Comedy, "Akiva Schaffer", 2012, 102, new List<string> { "Ben Stiller", "Vince Vaughn", "Jonah Hill", "Richard Ayoade" }, "Keeping the neighborhood safe, from aliens."));
+		}
+
+		public static void SortMovies(MovieTheater theater)
+		{
+			Console.WriteLine("How would you like to sort the movies?");
+			Console.WriteLine($"{new string('-', 16)}");
+			Console.WriteLine($"{$"1.",-4}{"Title"}");
+			Console.WriteLine($"{$"2.",-4}{"Genre"}");
+			Console.WriteLine($"{$"3.",-4}{"Director"}");
+			Console.WriteLine($"{$"4.",-4}{"Runtime"}");
+			Console.WriteLine($"{$"5.",-4}{"Year"}");
+			Console.WriteLine($"{$"6.",-4}{"Back"}");
+			Console.WriteLine($"{new string('-', 16)}");
+			Console.Write($"{"=>",-4}");
+			bool isValid = int.TryParse(Console.ReadLine(), out int option);
+			while (!isValid || !(option >= 1 && option <= 6))
+			{
+				Console.SetCursorPosition(0, 0);
+				Console.WriteLine("That is not a valid option.");
+				Console.SetCursorPosition(0, 10);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 10);
+				Console.Write($"{"=>",-4}");
+				isValid = int.TryParse(Console.ReadLine(), out option);
+			}
+			switch (option)
+			{
+				case 1:
+					theater.SortMovies("title");
+					break;
+				case 2:
+					theater.SortMovies("genre");
+					break;
+				case 3:
+					theater.SortMovies("director");
+					break;
+				case 4:
+					theater.SortMovies("runtime");
+					break;
+				case 5:
+					theater.SortMovies("year");
+					break;
+				case 6:
+					break;
+			}
+		}
+
+		public static void SearchMovies(MovieTheater theater)
+		{
+
+		}
+
+		public static void Admin(MovieTheater theater)
+		{
+			Console.WriteLine("What would you like to do?");
+			Console.WriteLine($"{new string('-', 16)}");
+			Console.WriteLine($"{$"1.",-4}{"Add Movie"}");
+			Console.WriteLine($"{$"2.",-4}{"Edit Movie"}");
+			Console.WriteLine($"{$"3.",-4}{"Remove Movie"}");
+			Console.WriteLine($"{$"4.",-4}{"Back"}");
+			Console.WriteLine($"{new string('-', 16)}");
+			Console.Write($"{"=>",-4}");
+			bool isValid = int.TryParse(Console.ReadLine(), out int option);
+			while (!isValid || !(option >= 1 && option <= 4))
+			{
+				Console.SetCursorPosition(0, 0);
+				Console.WriteLine("That is not a valid option.");
+				Console.SetCursorPosition(0, 8);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 8);
+				Console.Write($"{"=>",-4}");
+				isValid = int.TryParse(Console.ReadLine(), out option);
+			}
+			switch (option)
+			{
+				case 1:
+					
+					break;
+				case 2:
+					
+					break;
+				case 3:
+					
+					break;
+				case 4:
+					break;
+			}
 		}
 	}
 }
