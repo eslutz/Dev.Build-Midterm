@@ -12,13 +12,32 @@ namespace Midterm
 			Console.Title = "Dev.Build(4.0) Movie Listing Mania!";
 			MovieTheater theater = new MovieTheater();
 			GenerateDefaultMovieList(theater);
-			int userChoice;
+			bool runProgram = true;
 			do
 			{
 				ShowMovies(theater);
-				userChoice = ShowMenu(theater);
+				int userChoice = ShowMenu(theater);
+				switch (userChoice)
+				{
+					//Sort movies.
+					case 1:
+
+						break;
+					//Search movies.
+					case 2:
+
+						break;
+					//Admin (add/edit/remove).
+					case 3:
+
+						break;
+					//Quit the program.
+					case 4:
+						runProgram = false;
+						break;
+				}
 				Console.Clear();
-			} while (userChoice != 4);
+			} while (runProgram);
 			Console.WriteLine("Thanks for going though the Movie Listing Mania!");
 		}
 

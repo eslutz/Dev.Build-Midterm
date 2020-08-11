@@ -117,7 +117,7 @@ namespace Midterm
 					Title = newValue;
 					break;
 				case "genre":
-					Genre = (MovieGenre)Enum.Parse(typeof(MovieGenre), newValue);
+					Genre = (MovieGenre)Enum.Parse(typeof(MovieGenre), newValue, true);
 					break;
 				case "director":
 					Director = newValue;
