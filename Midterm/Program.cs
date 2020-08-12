@@ -234,7 +234,9 @@ namespace Midterm
 
 		public static void AdminAddMovie(MovieTheater theater)
 		{
+			//Regex pattern used for validating cast entry.
 			Regex castValidation = new Regex(@"^(([A-Za-z]+(\s[A-Za-z]+)?,\s){0,2}[A-Za-z]+(\s[A-Za-z]+)?)$");
+			//Creating a string of all the MovieGenre enums to display as options when picking a genre.
 			string[] genres = Enum.GetNames(typeof(MovieGenre));
 			string allGenres = "";
 			for (int index = 0; index < genres.Length - 1; index++)
@@ -242,91 +244,147 @@ namespace Midterm
 				allGenres += $"{genres[index]}/";
 			}
 			allGenres += genres[genres.Length - 1];
-			Console.WriteLine("Enter the movie title.");
+			//Gets a movie title.  Validates that it is not left empty.
+			Console.WriteLine("\nEnter the movie title.");
 			Console.Write($"{"=>",-4}");
 			string title = Console.ReadLine();
+			while (string.IsNullOrEmpty(title))
+			{
+				Console.SetCursorPosition(0, 0);
+				Console.Write("Title cannot be blank.");
+				Console.SetCursorPosition(0, 2);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 2);
+				Console.Write($"{"=>",-4}");
+				title = Console.ReadLine();
+			}
+			Console.SetCursorPosition(0, 0);
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.SetCursorPosition(0, 3);
+			//Gets a movie genre.  Verifies that it is not left empty and that it is a valid genre.
 			Console.WriteLine($"\nEnter the movie genre ({allGenres}).");
 			Console.Write($"{"=>",-4}");
 			string genre = Console.ReadLine().ToLower();
-			while (!allGenres.ToLower().Contains(genre))
+			while (!allGenres.ToLower().Contains(genre) || string.IsNullOrEmpty(genre))
 			{
-				Console.SetCursorPosition(0, 2);
-				Console.Write("That is not a valid option.");
-				Console.SetCursorPosition(0, 4);
+				Console.SetCursorPosition(0, 3);
+				Console.Write("That is not a valid genre.");
+				Console.SetCursorPosition(0, 5);
 				Console.Write(new string(' ', Console.WindowWidth));
-				Console.SetCursorPosition(0, 4);
+				Console.SetCursorPosition(0, 5);
 				Console.Write($"{"=>",-4}");
 				genre = Console.ReadLine().ToLower();
 			}
-			Console.SetCursorPosition(0, 2);
+			Console.SetCursorPosition(0, 3);
 			Console.Write(new string(' ', Console.WindowWidth));
-			Console.SetCursorPosition(0, 5);
+			Console.SetCursorPosition(0, 6);
+			//Gets a movie director.  Verifies that it is not left empty.
 			Console.WriteLine($"\nEnter the movie director.");
 			Console.Write($"{"=>",-4}");
 			string director = Console.ReadLine();
-			Console.WriteLine("\nEnter the release year:");
+			while (string.IsNullOrEmpty(director))
+			{
+				Console.SetCursorPosition(0, 6);
+				Console.Write("Director cannot be blank.");
+				Console.SetCursorPosition(0, 8);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 8);
+				Console.Write($"{"=>",-4}");
+				director = Console.ReadLine();
+			}
+			Console.SetCursorPosition(0, 6);
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.SetCursorPosition(0, 9);
+			//Gets a movie release year.  Verifies that the year is not in the future or before the first film was made.
+			Console.WriteLine("\nEnter the release year.");
 			Console.Write($"{"=>",-4}");
 			bool isValid = int.TryParse(Console.ReadLine(), out int year);
-			while (!isValid || year < 1895)
+			while (!isValid || year < 1895 || year > DateTime.Now.Year)
 			{
 				if (isValid && year < 1895)
 				{
-					Console.SetCursorPosition(0, 8);
+					Console.SetCursorPosition(0, 9);
 					Console.Write("The release year must be after the first film in 1895.");
-					Console.SetCursorPosition(0, 10);
+					Console.SetCursorPosition(0, 11);
 					Console.Write(new string(' ', Console.WindowWidth));
-					Console.SetCursorPosition(0, 10);
+					Console.SetCursorPosition(0, 11);
+					Console.Write($"{"=>",-4}");
+					isValid = int.TryParse(Console.ReadLine(), out year);
+				}
+				else if(isValid && year > DateTime.Now.Year)
+				{
+					Console.SetCursorPosition(0, 9);
+					Console.Write("The release year cannot be in the future.");
+					Console.SetCursorPosition(0, 11);
+					Console.Write(new string(' ', Console.WindowWidth));
+					Console.SetCursorPosition(0, 11);
 					Console.Write($"{"=>",-4}");
 					isValid = int.TryParse(Console.ReadLine(), out year);
 				}
 				else
 				{
-					Console.SetCursorPosition(0, 8);
-					Console.Write("That is not a valid option.");
-					Console.SetCursorPosition(0, 10);
+					Console.SetCursorPosition(0, 9);
+					Console.Write("That is not a valid year.");
+					Console.SetCursorPosition(0, 11);
 					Console.Write(new string(' ', Console.WindowWidth));
-					Console.SetCursorPosition(0, 10);
+					Console.SetCursorPosition(0, 11);
 					Console.Write($"{"=>",-4}");
 					isValid = int.TryParse(Console.ReadLine(), out year);
 				}
-				Console.SetCursorPosition(0, 8);
+				Console.SetCursorPosition(0, 9);
 				Console.Write(new string(' ', Console.WindowWidth));
 			}
-			Console.SetCursorPosition(0, 11);
+			Console.SetCursorPosition(0, 12);
+			//Gets the movie runtime.  Verifies the value is greater than zero.
 			Console.WriteLine("\nEnter the movie runtime (in minutes).");
 			Console.Write($"{"=>",-4}");
 			isValid = int.TryParse(Console.ReadLine(), out int runtime);
 			while (!isValid || runtime <= 0)
 			{
-				Console.SetCursorPosition(0, 11);
-				Console.Write("That is not a valid option.");
-				Console.SetCursorPosition(0, 13);
+				Console.SetCursorPosition(0, 12);
+				Console.Write("That is not a valid runtime.");
+				Console.SetCursorPosition(0, 14);
 				Console.Write(new string(' ', Console.WindowWidth));
-				Console.SetCursorPosition(0, 13);
+				Console.SetCursorPosition(0, 14);
 				Console.Write($"{"=>",-4}");
 				isValid = int.TryParse(Console.ReadLine(), out runtime);
 			}
-			Console.SetCursorPosition(0, 14);
+			Console.SetCursorPosition(0, 12);
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.SetCursorPosition(0, 15);
+			//Gets the movie cast.  Verifies that it is not left empty and entered in the specified format.
 			Console.WriteLine("\nEnter up to three cast members (cast1, cast2, cast3).");
 			Console.Write($"{"=>",-4}");
 			string cast = Console.ReadLine();
 			while (!castValidation.IsMatch(cast))
 			{
-				Console.SetCursorPosition(0, 14);
+				Console.SetCursorPosition(0, 15);
 				Console.Write("That is not a valid option.");
-				Console.SetCursorPosition(0, 16);
+				Console.SetCursorPosition(0, 17);
 				Console.Write(new string(' ', Console.WindowWidth));
-				Console.SetCursorPosition(0, 16);
+				Console.SetCursorPosition(0, 17);
 				Console.Write($"{"=>",-4}");
 				cast = Console.ReadLine();
 			}
 			List<string> movieCast = cast.Split(", ").ToList();
-			Console.SetCursorPosition(0, 14);
+			Console.SetCursorPosition(0, 15);
 			Console.Write(new string(' ', Console.WindowWidth));
-			Console.SetCursorPosition(0, 17);
+			Console.SetCursorPosition(0, 18);
+			//Gets the movie description.  Verifies that it is not left empty.
 			Console.WriteLine("\nEnter the movie description.");
 			Console.Write($"{"=>",-4}");
 			string description = Console.ReadLine();
+			while (string.IsNullOrEmpty(description))
+			{
+				Console.SetCursorPosition(0, 18);
+				Console.Write("Description cannot be blank.");
+				Console.SetCursorPosition(0, 20);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 20);
+				Console.Write($"{"=>",-4}");
+				description = Console.ReadLine();
+			}
+			//Adds a movie to the list using all the user entered information.
 			theater.AddMovie(new Movie(title, (MovieGenre)Enum.Parse(typeof(MovieGenre), genre, true), director, year, runtime, movieCast, description));
 		}
 
