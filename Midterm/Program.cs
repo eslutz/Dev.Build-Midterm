@@ -192,12 +192,201 @@ namespace Midterm
 
 		public static void SearchMovies(MovieTheater theater)
 		{
-			List<Movie> foundMovies = theater.SearchMovies("cast", "bruce");
-			foreach(Movie x in foundMovies)
+			Regex fieldMatch = new Regex(@"^(title)$|^(genre)$|^(director)$|^(runtime)$|^(year)$|^(cast)$");
+			string allFields = "Title/Genre/Director/Runtime/Year/Cast";
+			Console.WriteLine($"What would you like to search ({allFields})?");
+			Console.Write($"{"=>",-4}");
+			string searchField = Console.ReadLine().ToLower();
+			while (!fieldMatch.IsMatch(searchField))
 			{
-				Console.WriteLine(x);
+				Console.SetCursorPosition(0, 0);
+				Console.WriteLine("That is not a valid option.");
+				Console.SetCursorPosition(0, 2);
+				Console.Write(new string(' ', Console.WindowWidth));
+				Console.SetCursorPosition(0, 2);
+				Console.Write($"{"=>",-4}");
+				searchField = Console.ReadLine().ToLower();
 			}
-			Console.WriteLine("\nPress any key to continue.");
+			Console.SetCursorPosition(0, 0);
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.SetCursorPosition(0, 0);
+			string searchCriteria;
+			switch (searchField)
+			{
+				case "title":
+					Console.WriteLine("\nEnter the title you would like to search for.");
+					Console.Write($"{"=>",-4}");
+					searchCriteria = Console.ReadLine();
+					while (string.IsNullOrEmpty(searchCriteria))
+					{
+						Console.SetCursorPosition(0, 0);
+						Console.Write("Title search criteria cannot be blank.");
+						Console.SetCursorPosition(0, 2);
+						Console.Write(new string(' ', Console.WindowWidth));
+						Console.SetCursorPosition(0, 2);
+						Console.Write($"{"=>",-4}");
+						searchCriteria = Console.ReadLine();
+					}
+					break;
+				case "genre":
+					string[] genres = Enum.GetNames(typeof(MovieGenre));
+					string allGenres = "";
+					for (int i = 0; i < genres.Length - 1; i++)
+					{
+						allGenres += $"{genres[i]}/";
+					}
+					allGenres += genres[genres.Length - 1];
+					Console.WriteLine($"\nEnter the movie genre you would like to search for ({allGenres}).");
+					Console.Write($"{"=>",-4}");
+					searchCriteria = Console.ReadLine().ToLower();
+					while (!genres.Any(x => x.Equals(searchCriteria, StringComparison.OrdinalIgnoreCase)) || string.IsNullOrEmpty(searchCriteria))
+					{
+						if (!string.IsNullOrEmpty(searchCriteria))
+						{
+							Console.SetCursorPosition(0, 0);
+							Console.Write("That is not a valid genre.");
+							Console.SetCursorPosition(0, 2);
+							Console.Write(new string(' ', Console.WindowWidth));
+							Console.SetCursorPosition(0, 2);
+							Console.Write($"{"=>",-4}");
+							searchCriteria = Console.ReadLine().ToLower(); 
+						}
+						else
+						{
+							Console.SetCursorPosition(0, 0);
+							Console.Write("Genre search criteria cannot be blank.");
+							Console.SetCursorPosition(0, 2);
+							Console.Write(new string(' ', Console.WindowWidth));
+							Console.SetCursorPosition(0, 2);
+							Console.Write($"{"=>",-4}");
+							searchCriteria = Console.ReadLine().ToLower();
+						}
+					}
+					break;
+				case "director":
+					Console.WriteLine($"\nEnter the movie director you would like to search for.");
+					Console.Write($"{"=>",-4}");
+					searchCriteria = Console.ReadLine();
+					while (string.IsNullOrEmpty(searchCriteria))
+					{
+						Console.SetCursorPosition(0, 0);
+						Console.Write("Director search criteria cannot be blank.");
+						Console.SetCursorPosition(0, 2);
+						Console.Write(new string(' ', Console.WindowWidth));
+						Console.SetCursorPosition(0, 2);
+						Console.Write($"{"=>",-4}");
+						searchCriteria = Console.ReadLine();
+					}
+					break;
+				case "runtime":
+					Console.WriteLine("\nEnter the movie runtime (in minutes) you would like to search for.");
+					Console.Write($"{"=>",-4}");
+					bool isValid = int.TryParse(Console.ReadLine(), out int runtime);
+					while (!isValid || runtime <= 0)
+					{
+						Console.SetCursorPosition(0, 0);
+						Console.Write("That is not a valid runtime.");
+						Console.SetCursorPosition(0, 2);
+						Console.Write(new string(' ', Console.WindowWidth));
+						Console.SetCursorPosition(0, 2);
+						Console.Write($"{"=>",-4}");
+						isValid = int.TryParse(Console.ReadLine(), out runtime);
+					}
+					searchCriteria = runtime.ToString();
+					break;
+				case "year":
+					Console.WriteLine("\nEnter the release year you would like to search for.");
+					Console.Write($"{"=>",-4}");
+					isValid = int.TryParse(Console.ReadLine(), out int year);
+					while (!isValid || year < 1895 || year > DateTime.Now.Year)
+					{
+						if (isValid && year < 1895)
+						{
+							Console.SetCursorPosition(0, 0);
+							Console.Write("The release year must be after the first film in 1895.");
+							Console.SetCursorPosition(0, 2);
+							Console.Write(new string(' ', Console.WindowWidth));
+							Console.SetCursorPosition(0, 2);
+							Console.Write($"{"=>",-4}");
+							isValid = int.TryParse(Console.ReadLine(), out year);
+						}
+						else if (isValid && year > DateTime.Now.Year)
+						{
+							Console.SetCursorPosition(0, 0);
+							Console.Write("The release year cannot be in the future.");
+							Console.SetCursorPosition(0, 2);
+							Console.Write(new string(' ', Console.WindowWidth));
+							Console.SetCursorPosition(0, 2);
+							Console.Write($"{"=>",-4}");
+							isValid = int.TryParse(Console.ReadLine(), out year);
+						}
+						else
+						{
+							Console.SetCursorPosition(0, 0);
+							Console.Write("That is not a valid year.");
+							Console.SetCursorPosition(0, 2);
+							Console.Write(new string(' ', Console.WindowWidth));
+							Console.SetCursorPosition(0, 2);
+							Console.Write($"{"=>",-4}");
+							isValid = int.TryParse(Console.ReadLine(), out year);
+						}
+						Console.SetCursorPosition(0, 0);
+						Console.Write(new string(' ', Console.WindowWidth));
+						Console.SetCursorPosition(0, 0);
+					}
+					searchCriteria = year.ToString();
+					break;
+				case "cast":
+					Console.WriteLine($"\nEnter the movie cast member you would like to search for.");
+					Console.Write($"{"=>",-4}");
+					searchCriteria = Console.ReadLine();
+					while (string.IsNullOrEmpty(searchCriteria))
+					{
+						Console.SetCursorPosition(0, 0);
+						Console.Write("Cast member search criteria cannot be blank.");
+						Console.SetCursorPosition(0, 2);
+						Console.Write(new string(' ', Console.WindowWidth));
+						Console.SetCursorPosition(0, 2);
+						Console.Write($"{"=>",-4}");
+						searchCriteria = Console.ReadLine();
+					}
+					break;
+				default:
+					searchCriteria = "";
+					break;
+			}
+			Console.SetCursorPosition(0, 0);
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.Write(new string(' ', Console.WindowWidth));
+			Console.SetCursorPosition(0, 0);
+			List<Movie> searchResult = theater.SearchMovies(searchField, searchCriteria);
+			if (searchResult.Count != 0)
+			{
+				Console.WriteLine($"{"",-4}{"Title",-40}|{"Genre",-12}|{"Director",-20}|{"Runtime",-8}|{"Year",-6}|{"Cast",-66}|{"Description"}");
+				Console.WriteLine($"{new string('*', 44)}|{new string('*', 12)}|{new string('*', 20)}|{new string('*', 8)}|{new string('*', 6)}|{new string('*', 66)}|{new string('*', 40)}");
+				for (int index = 1; index <= searchResult.Count; index++)
+				{
+					if (index % 2 == 0)
+					{
+						Console.ForegroundColor = ConsoleColor.Cyan;
+						Console.WriteLine($"{$"{index}.",-4}{searchResult[index - 1]}");
+						Console.ResetColor();
+					}
+					else
+					{
+						Console.WriteLine($"{$"{index}.",-4}{searchResult[index - 1]}");
+					}
+				}
+				Console.WriteLine($"{new string('*', 202)}");
+			}
+			else
+			{
+				Console.WriteLine("Your search did not return any results.");
+			}
+			Console.Write("\nPress any key to continue.");
 			Console.ReadKey();
 		}
 
@@ -418,6 +607,7 @@ namespace Midterm
 				bool keepEditing = true;
 				while (keepEditing)
 				{
+					Regex fieldMatch = new Regex(@"^(title)$|^(genre)$|^(director)$|^(runtime)$|^(year)$|^(cast)$|^(description)$");
 					Console.WriteLine($"{"",-4}{"Title",-40}|{"Genre",-12}|{"Director",-20}|{"Runtime",-8}|{"Year",-6}|{"Cast",-66}|{"Description"}");
 					Console.WriteLine($"{new string('*', 44)}|{new string('*', 12)}|{new string('*', 20)}|{new string('*', 8)}|{new string('*', 6)}|{new string('*', 66)}|{new string('*', 40)}");
 					Console.WriteLine($"{"",-4}{theater.GetMovie(index)}");
@@ -426,7 +616,7 @@ namespace Midterm
 					Console.WriteLine($"What would you like to edit ({allFields})?");
 					Console.Write($"{"=>",-4}");
 					string editField = Console.ReadLine().ToLower();
-					while (!allFields.ToLower().Contains(editField))
+					while (!fieldMatch.IsMatch(editField))
 					{
 						Console.SetCursorPosition(0, 5);
 						Console.WriteLine("That is not a valid option.");
@@ -470,7 +660,7 @@ namespace Midterm
 							Console.WriteLine($"\nEnter the movie genre ({allGenres}).");
 							Console.Write($"{"=>",-4}");
 							string genre = Console.ReadLine().ToLower();
-							while (!allGenres.ToLower().Contains(genre) || string.IsNullOrEmpty(genre))
+							while (!genres.Any(x => x.Equals(genre, StringComparison.OrdinalIgnoreCase)) || string.IsNullOrEmpty(genre))
 							{
 								Console.SetCursorPosition(0, 5);
 								Console.Write("That is not a valid genre.");
@@ -552,6 +742,7 @@ namespace Midterm
 								}
 								Console.SetCursorPosition(0, 5);
 								Console.Write(new string(' ', Console.WindowWidth));
+								Console.SetCursorPosition(0, 5);
 							}
 							theater.GetMovie(index).EditMovie(editField, year.ToString());
 							break;
