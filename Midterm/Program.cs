@@ -192,7 +192,13 @@ namespace Midterm
 
 		public static void SearchMovies(MovieTheater theater)
 		{
-
+			List<Movie> foundMovies = theater.SearchMovies("cast", "Bruce");
+			foreach(Movie x in foundMovies)
+			{
+				Console.WriteLine(x);
+			}
+			Console.WriteLine("\nPress any key to continue.");
+			Console.ReadKey();
 		}
 
 		public static void Admin(MovieTheater theater)
@@ -583,17 +589,16 @@ namespace Midterm
 							theater.GetMovie(index).EditMovie(editField, description);
 							break;
 					}
-					Console.Clear();
 					Console.WriteLine("\nDo you want to edit another field (y/n)?");
 					Console.Write($"{"=>",-4}");
 					string yesOrNo = Console.ReadLine().ToLower();
 					while(!(yesOrNo == "yes" | yesOrNo == "y" | yesOrNo == "no" | yesOrNo == "n"))
 					{
-						Console.SetCursorPosition(0, 0);
+						Console.SetCursorPosition(0, 8);
 						Console.Write("Invalid input.");
-						Console.SetCursorPosition(0, 2);
+						Console.SetCursorPosition(0, 10);
 						Console.Write(new string(' ', Console.WindowWidth));
-						Console.SetCursorPosition(0, 2);
+						Console.SetCursorPosition(0, 10);
 						Console.Write($"{"=>",-4}");
 						yesOrNo = Console.ReadLine().ToLower();
 					}

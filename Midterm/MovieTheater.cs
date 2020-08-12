@@ -52,5 +52,33 @@ namespace Midterm
 					break;
 			}
 		}
+
+		public List<Movie> SearchMovies(string searchField, string searchCriteria)
+		{
+			List<Movie> foundMovies = new List<Movie>();
+			switch (searchField)
+			{
+				case "title":
+					foundMovies = _movieList.FindAll(x => x.Title.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase));
+					break;
+				case "genre":
+					foundMovies = _movieList.FindAll(x => x.Genre.Equals((MovieGenre)Enum.Parse(typeof(MovieGenre), searchCriteria, true)));
+					break;
+				case "director":
+					foundMovies = _movieList.FindAll(x => x.Director.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase));
+					break;
+				case "runtime":
+					foundMovies = _movieList.FindAll(x => x.Runtime.Equals(int.Parse(searchCriteria)));
+					break;
+				case "year":
+					foundMovies = _movieList.FindAll(x => x.ReleaseYear.Equals(int.Parse(searchCriteria)));
+					break;
+				case "cast":
+					foundMovies = _movieList.FindAll(x => x.Cast.Contains(searchCriteria, StringComparer.OrdinalIgnoreCase));
+					break;
+			}
+
+			return foundMovies;
+		}
 	}
 }
