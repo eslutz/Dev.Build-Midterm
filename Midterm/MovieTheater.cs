@@ -74,7 +74,7 @@ namespace Midterm
 					foundMovies = _movieList.FindAll(x => x.ReleaseYear.Equals(int.Parse(searchCriteria)));
 					break;
 				case "cast":
-					foundMovies = _movieList.FindAll(x => x.Cast.Contains(searchCriteria, StringComparer.OrdinalIgnoreCase));
+					foundMovies = _movieList.FindAll(x => x.Cast.Any(x => x.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase)));
 					break;
 			}
 

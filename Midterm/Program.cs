@@ -192,7 +192,7 @@ namespace Midterm
 
 		public static void SearchMovies(MovieTheater theater)
 		{
-			List<Movie> foundMovies = theater.SearchMovies("cast", "Bruce");
+			List<Movie> foundMovies = theater.SearchMovies("cast", "bruce");
 			foreach(Movie x in foundMovies)
 			{
 				Console.WriteLine(x);
