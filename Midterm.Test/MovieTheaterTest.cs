@@ -30,7 +30,7 @@ namespace Midterm.Test
 			MovieTheater test = new MovieTheater();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 
-			Assert.IsType<Movie>(test.GetMovie(0));
+			Assert.IsType<Movie>(test.GetMovie(1));
 		}
 
 		[Fact]
@@ -53,7 +53,7 @@ namespace Midterm.Test
 			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 			test.SortMovies("title");
 
-			Assert.True(test.GetMovie(0) == firstSortedMovie);
+			Assert.True(test.GetMovie(1) == firstSortedMovie);
 		}
 
 		[Fact]
@@ -66,7 +66,7 @@ namespace Midterm.Test
 			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 			test.SortMovies("genre");
 
-			Assert.True(test.GetMovie(0) == firstSortedMovie);
+			Assert.True(test.GetMovie(1) == firstSortedMovie);
 		}
 
 		[Fact]
@@ -79,7 +79,7 @@ namespace Midterm.Test
 			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 			test.SortMovies("director");
 
-			Assert.True(test.GetMovie(0) == firstSortedMovie);
+			Assert.True(test.GetMovie(1) == firstSortedMovie);
 		}
 
 		[Fact]
@@ -92,7 +92,7 @@ namespace Midterm.Test
 			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 			test.SortMovies("runtime");
 
-			Assert.True(test.GetMovie(0) == firstSortedMovie);
+			Assert.True(test.GetMovie(1) == firstSortedMovie);
 		}
 
 		[Fact]
@@ -105,7 +105,7 @@ namespace Midterm.Test
 			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 			test.SortMovies("year");
 
-			Assert.True(test.GetMovie(0) == firstSortedMovie);
+			Assert.True(test.GetMovie(1) == firstSortedMovie);
 		}
 	}
 }

@@ -28,7 +28,7 @@ namespace Midterm
 
 		public Movie GetMovie(int index)
 		{
-			return _movieList[index];
+			return _movieList[index-1];
 		}
 
 		public void SortMovies(string sortField)

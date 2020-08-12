@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Midterm
@@ -49,17 +50,17 @@ namespace Midterm
 			Console.WriteLine("Welcome to the Dev.Build(4.0) Movie Listing Mania!\n");
 			Console.WriteLine($"{"",-4}{"Title",-40}|{"Genre",-12}|{"Director",-20}|{"Runtime",-8}|{"Year",-6}|{"Cast",-66}|{"Description"}");
 			Console.WriteLine($"{new string('*',44)}|{new string('*',12)}|{new string('*',20)}|{new string('*',8)}|{new string('*',6)}|{new string('*',66)}|{new string('*',40)}");
-			for (int index = 0; index < theater.MovieCount(); index++)
+			for (int index = 1; index <= theater.MovieCount(); index++)
 			{
 				if(index % 2 == 0)
 				{
 					Console.ForegroundColor = ConsoleColor.Cyan;
-					Console.WriteLine($"{$"{index + 1}.",-4}{theater.GetMovie(index)}");
+					Console.WriteLine($"{$"{index}.",-4}{theater.GetMovie(index)}");
 					Console.ResetColor();
 				}
 				else
 				{
-					Console.WriteLine($"{$"{index + 1}.",-4}{theater.GetMovie(index)}");
+					Console.WriteLine($"{$"{index}.",-4}{theater.GetMovie(index)}");
 				}
 			}
 			Console.WriteLine($"{new string('*', 202)}\n\n");
@@ -393,9 +394,11 @@ namespace Midterm
 			ShowMovies(theater);
 			if (theater.MovieCount() != 0)
 			{
+				
+				//Gets user input for movie they want to edit.  Verifies the number is within the range of available movies.
 				Console.Write($"Which movie would you like to edit (1 - {theater.MovieCount()})? ");
-				bool isValid = int.TryParse(Console.ReadLine(), out int option);
-				while (!isValid || !(option >= 1 && option <= theater.MovieCount()))
+				bool isValid = int.TryParse(Console.ReadLine(), out int index);
+				while (!isValid || !(index >= 1 && index <= theater.MovieCount()))
 				{
 					Console.SetCursorPosition(0, theater.MovieCount() + 6);
 					Console.WriteLine("That is not a valid option.");
@@ -403,10 +406,203 @@ namespace Midterm
 					Console.Write(new string(' ', Console.WindowWidth));
 					Console.SetCursorPosition(0, theater.MovieCount() + 7);
 					Console.Write($"Which movie would you like to edit (1 - {theater.MovieCount()})? ");
-					isValid = int.TryParse(Console.ReadLine(), out option);
+					isValid = int.TryParse(Console.ReadLine(), out index);
 				}
-
-
+				Console.Clear();
+				bool keepEditing = true;
+				while (keepEditing)
+				{
+					Console.WriteLine($"{"",-4}{"Title",-40}|{"Genre",-12}|{"Director",-20}|{"Runtime",-8}|{"Year",-6}|{"Cast",-66}|{"Description"}");
+					Console.WriteLine($"{new string('*', 44)}|{new string('*', 12)}|{new string('*', 20)}|{new string('*', 8)}|{new string('*', 6)}|{new string('*', 66)}|{new string('*', 40)}");
+					Console.WriteLine($"{"",-4}{theater.GetMovie(index)}");
+					Console.WriteLine($"{new string('*', 202)}\n\n");
+					string allFields = "Title/Genre/Director/Runtime/Year/Cast/Description";
+					Console.WriteLine($"What would you like to edit ({allFields})?");
+					Console.Write($"{"=>",-4}");
+					string editField = Console.ReadLine().ToLower();
+					while (!allFields.ToLower().Contains(editField))
+					{
+						Console.SetCursorPosition(0, 5);
+						Console.WriteLine("That is not a valid option.");
+						Console.SetCursorPosition(0, 7);
+						Console.Write(new string(' ', Console.WindowWidth));
+						Console.SetCursorPosition(0, 7);
+						Console.Write($"{"=>",-4}");
+						editField = Console.ReadLine().ToLower();
+					}
+					Console.SetCursorPosition(0, 5);
+					Console.WriteLine(new string(' ', Console.WindowWidth));
+					Console.WriteLine(new string(' ', Console.WindowWidth));
+					Console.WriteLine(new string(' ', Console.WindowWidth));
+					Console.SetCursorPosition(0, 5);
+					switch (editField)
+					{
+						case "title":
+							Console.WriteLine("\nEnter the movie title.");
+							Console.Write($"{"=>",-4}");
+							string title = Console.ReadLine();
+							while (string.IsNullOrEmpty(title))
+							{
+								Console.SetCursorPosition(0, 5);
+								Console.Write("Title cannot be blank.");
+								Console.SetCursorPosition(0, 7);
+								Console.Write(new string(' ', Console.WindowWidth));
+								Console.SetCursorPosition(0, 7);
+								Console.Write($"{"=>",-4}");
+								title = Console.ReadLine();
+							}
+							theater.GetMovie(index).EditMovie(editField, title);
+							break;
+						case "genre":
+							string[] genres = Enum.GetNames(typeof(MovieGenre));
+							string allGenres = "";
+							for (int i = 0; i < genres.Length - 1; i++)
+							{
+								allGenres += $"{genres[i]}/";
+							}
+							allGenres += genres[genres.Length - 1];
+							Console.WriteLine($"\nEnter the movie genre ({allGenres}).");
+							Console.Write($"{"=>",-4}");
+							string genre = Console.ReadLine().ToLower();
+							while (!allGenres.ToLower().Contains(genre) || string.IsNullOrEmpty(genre))
+							{
+								Console.SetCursorPosition(0, 5);
+								Console.Write("That is not a valid genre.");
+								Console.SetCursorPosition(0, 7);
+								Console.Write(new string(' ', Console.WindowWidth));
+								Console.SetCursorPosition(0, 7);
+								Console.Write($"{"=>",-4}");
+								genre = Console.ReadLine().ToLower();
+							}
+							theater.GetMovie(index).EditMovie(editField, genre);
+							break;
+						case "director":
+							Console.WriteLine($"\nEnter the movie director.");
+							Console.Write($"{"=>",-4}");
+							string director = Console.ReadLine();
+							while (string.IsNullOrEmpty(director))
+							{
+								Console.SetCursorPosition(0, 5);
+								Console.Write("Director cannot be blank.");
+								Console.SetCursorPosition(0, 7);
+								Console.Write(new string(' ', Console.WindowWidth));
+								Console.SetCursorPosition(0, 7);
+								Console.Write($"{"=>",-4}");
+								director = Console.ReadLine();
+							}
+							theater.GetMovie(index).EditMovie(editField, director);
+							break;
+						case "runtime":
+							Console.WriteLine("\nEnter the movie runtime (in minutes).");
+							Console.Write($"{"=>",-4}");
+							isValid = int.TryParse(Console.ReadLine(), out int runtime);
+							while (!isValid || runtime <= 0)
+							{
+								Console.SetCursorPosition(0, 5);
+								Console.Write("That is not a valid runtime.");
+								Console.SetCursorPosition(0, 7);
+								Console.Write(new string(' ', Console.WindowWidth));
+								Console.SetCursorPosition(0, 7);
+								Console.Write($"{"=>",-4}");
+								isValid = int.TryParse(Console.ReadLine(), out runtime);
+							}
+							theater.GetMovie(index).EditMovie(editField, runtime.ToString());
+							break;
+						case "year":
+							Console.WriteLine("\nEnter the release year.");
+							Console.Write($"{"=>",-4}");
+							isValid = int.TryParse(Console.ReadLine(), out int year);
+							while (!isValid || year < 1895 || year > DateTime.Now.Year)
+							{
+								if (isValid && year < 1895)
+								{
+									Console.SetCursorPosition(0, 5);
+									Console.Write("The release year must be after the first film in 1895.");
+									Console.SetCursorPosition(0, 7);
+									Console.Write(new string(' ', Console.WindowWidth));
+									Console.SetCursorPosition(0, 7);
+									Console.Write($"{"=>",-4}");
+									isValid = int.TryParse(Console.ReadLine(), out year);
+								}
+								else if (isValid && year > DateTime.Now.Year)
+								{
+									Console.SetCursorPosition(0, 5);
+									Console.Write("The release year cannot be in the future.");
+									Console.SetCursorPosition(0, 7);
+									Console.Write(new string(' ', Console.WindowWidth));
+									Console.SetCursorPosition(0, 7);
+									Console.Write($"{"=>",-4}");
+									isValid = int.TryParse(Console.ReadLine(), out year);
+								}
+								else
+								{
+									Console.SetCursorPosition(0, 5);
+									Console.Write("That is not a valid year.");
+									Console.SetCursorPosition(0, 7);
+									Console.Write(new string(' ', Console.WindowWidth));
+									Console.SetCursorPosition(0, 7);
+									Console.Write($"{"=>",-4}");
+									isValid = int.TryParse(Console.ReadLine(), out year);
+								}
+								Console.SetCursorPosition(0, 5);
+								Console.Write(new string(' ', Console.WindowWidth));
+							}
+							theater.GetMovie(index).EditMovie(editField, year.ToString());
+							break;
+						case "cast":
+							Regex castValidation = new Regex(@"^(([A-Za-z]+(\s[A-Za-z]+)?,\s){0,2}[A-Za-z]+(\s[A-Za-z]+)?)$");
+							Console.WriteLine("\nEnter up to three cast members (cast1, cast2, cast3).");
+							Console.Write($"{"=>",-4}");
+							string cast = Console.ReadLine();
+							while (!castValidation.IsMatch(cast))
+							{
+								Console.SetCursorPosition(0, 5);
+								Console.Write("That is not a valid option.");
+								Console.SetCursorPosition(0, 7);
+								Console.Write(new string(' ', Console.WindowWidth));
+								Console.SetCursorPosition(0, 7);
+								Console.Write($"{"=>",-4}");
+								cast = Console.ReadLine();
+							}
+							theater.GetMovie(index).EditMovie(editField, cast);
+							break;
+						case "description":
+							Console.WriteLine("\nEnter the movie description.");
+							Console.Write($"{"=>",-4}");
+							string description = Console.ReadLine();
+							while (string.IsNullOrEmpty(description))
+							{
+								Console.SetCursorPosition(0, 5);
+								Console.Write("Description cannot be blank.");
+								Console.SetCursorPosition(0, 7);
+								Console.Write(new string(' ', Console.WindowWidth));
+								Console.SetCursorPosition(0, 7);
+								Console.Write($"{"=>",-4}");
+								description = Console.ReadLine();
+							}
+							theater.GetMovie(index).EditMovie(editField, description);
+							break;
+					}
+					Console.Clear();
+					Console.WriteLine("\nDo you want to edit another field (y/n)?");
+					Console.Write($"{"=>",-4}");
+					string yesOrNo = Console.ReadLine().ToLower();
+					while(!(yesOrNo == "yes" | yesOrNo == "y" | yesOrNo == "no" | yesOrNo == "n"))
+					{
+						Console.SetCursorPosition(0, 0);
+						Console.Write("Invalid input.");
+						Console.SetCursorPosition(0, 2);
+						Console.Write(new string(' ', Console.WindowWidth));
+						Console.SetCursorPosition(0, 2);
+						Console.Write($"{"=>",-4}");
+						yesOrNo = Console.ReadLine().ToLower();
+					}
+					if(yesOrNo == "no" || yesOrNo == "n")
+					{
+						keepEditing = false;
+					}
+					Console.Clear();
+				}
 			}
 			else
 			{
@@ -419,9 +615,10 @@ namespace Midterm
 			ShowMovies(theater);
 			if (theater.MovieCount() != 0)
 			{
+				//Gets user input for movie they want removed.  Verifies the number is within the range of available movies.
 				Console.Write($"Which movie would you like to remove (1 - {theater.MovieCount()})? ");
-				bool isValid = int.TryParse(Console.ReadLine(), out int option);
-				while (!isValid || !(option >= 1 && option <= theater.MovieCount()))
+				bool isValid = int.TryParse(Console.ReadLine(), out int index);
+				while (!isValid || !(index >= 1 && index <= theater.MovieCount()))
 				{
 					Console.SetCursorPosition(0, theater.MovieCount() + 6);
 					Console.WriteLine("That is not a valid option.");
@@ -429,9 +626,10 @@ namespace Midterm
 					Console.Write(new string(' ', Console.WindowWidth));
 					Console.SetCursorPosition(0, theater.MovieCount() + 7);
 					Console.Write($"Which movie would you like to remove (1 - {theater.MovieCount()})? ");
-					isValid = int.TryParse(Console.ReadLine(), out option);
+					isValid = int.TryParse(Console.ReadLine(), out index);
 				}
-				theater.RemoveMovie(option);
+				//Removes the selected movie.
+				theater.RemoveMovie(index);
 			}
 			else
 			{
