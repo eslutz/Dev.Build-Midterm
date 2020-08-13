@@ -3,12 +3,12 @@ using Xunit;
 
 namespace Midterm.Test
 {
-	public class MovieTheaterTest
+	public class MovieCatalogTest
 	{
 		[Fact]
 		public void AddMovieTest1()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 
 			Assert.True(test.MovieCount() == 0);
 		}
@@ -16,7 +16,7 @@ namespace Midterm.Test
 		[Fact]
 		public void AddMovieTest2()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 
 			Assert.True(test.MovieCount() != 0);
@@ -25,7 +25,7 @@ namespace Midterm.Test
 		[Fact]
 		public void GetMovieTest()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 
 			Assert.IsType<Movie>(test.GetMovie(1));
@@ -34,7 +34,7 @@ namespace Midterm.Test
 		[Fact]
 		public void RemoveMovieTest()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.RemoveMovie(1);
 
@@ -44,7 +44,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SortMoviesTest1()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie firstSortedMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(firstSortedMovie);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -57,7 +57,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SortMoviesTest2()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie firstSortedMovie = new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in.");
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.AddMovie(firstSortedMovie);
@@ -70,7 +70,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SortMoviesTest3()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie firstSortedMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(firstSortedMovie);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -83,7 +83,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SortMoviesTest4()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie firstSortedMovie = new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in.");
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.AddMovie(firstSortedMovie);
@@ -96,7 +96,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SortMoviesTest5()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie firstSortedMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(firstSortedMovie);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -106,12 +106,12 @@ namespace Midterm.Test
 			Assert.True(test.GetMovie(1) == firstSortedMovie);
 		}
 
-		public static MovieTheater expected = new MovieTheater();
+		public static MovieCatalog expected = new MovieCatalog();
 
 		[Fact]
 		public void SearchMoviesTitleTest1()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -124,7 +124,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesTitleTest2()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -137,7 +137,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesTitleTest3()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -150,7 +150,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesGenreTest1()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -163,7 +163,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesGenreTest2()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -176,7 +176,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesDirectorTest1()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -189,7 +189,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesDirectorTest2()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -202,7 +202,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesDirectorTest3()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -215,7 +215,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesDirectorTest4()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -228,7 +228,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesDirectorTest5()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult1 = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			Movie movieSearchResult2 = new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe.");
 			test.AddMovie(movieSearchResult1);
@@ -242,7 +242,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesRuntimeTest()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -255,7 +255,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesYearTest()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -268,7 +268,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesCastTest1()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -281,7 +281,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesCastTest2()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -294,7 +294,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesCastTest3()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -307,7 +307,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesCastTest4()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
@@ -320,7 +320,7 @@ namespace Midterm.Test
 		[Fact]
 		public void SearchMoviesCastTest5()
 		{
-			MovieTheater test = new MovieTheater();
+			MovieCatalog test = new MovieCatalog();
 			Movie movieSearchResult1 = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			Movie movieSearchResult2 = new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in.");
 			test.AddMovie(movieSearchResult1);

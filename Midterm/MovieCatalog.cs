@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Midterm
 {
-	public class MovieTheater
+	public class MovieCatalog
 	{
 		//Private field
 		private List<Movie> _movieList = new List<Movie>();
