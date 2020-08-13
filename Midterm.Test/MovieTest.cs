@@ -20,6 +20,7 @@ namespace Midterm.Test
 		[InlineData(@"Alien/\Covenant", true)]
 		[InlineData("Alien: Covenant53", true)]
 		[InlineData("", false)]
+		[InlineData(null, false)]
 		public void EditMovieTitleTest(string newTitle, bool expected)
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
@@ -39,6 +40,7 @@ namespace Midterm.Test
 		[InlineData("horor", false)]
 		[InlineData("actin", false)]
 		[InlineData("", false)]
+		[InlineData(null, false)]
 		public void EditMovieGenreTest(string newGenre, bool expected)
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
@@ -53,6 +55,7 @@ namespace Midterm.Test
 		[InlineData(@"RIDLEY/\scott", true)]
 		[InlineData("ridlEY53", true)]
 		[InlineData("", false)]
+		[InlineData(null, false)]
 		public void EditMovieDirectorTest(string newDirector, bool expected)
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
@@ -69,6 +72,7 @@ namespace Midterm.Test
 		[InlineData("-100", false)]
 		[InlineData("twothousand", false)]
 		[InlineData("hello", false)]
+		[InlineData(null, false)]
 		public void EditMovieRuntimeTest(string newRuntime, bool expected)
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
@@ -85,6 +89,7 @@ namespace Midterm.Test
 		[InlineData("1862", false)]
 		[InlineData("twothousand", false)]
 		[InlineData("hello", false)]
+		[InlineData(null, false)]
 		public void EditMovieYearTest(string newYear, bool expected)
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
@@ -104,6 +109,7 @@ namespace Midterm.Test
 		[InlineData("Michael Fassbender Katherine Waterston3", false)]
 		[InlineData("Michael-Fassbender Katherine Waterston", false)]
 		[InlineData("", false)]
+		[InlineData(null, false)]
 		public void EditMovieCastTest(string newCast, bool expected)
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
@@ -117,6 +123,7 @@ namespace Midterm.Test
 		[InlineData(@"HI/ \there", true)]
 		[InlineData("1234567890", true)]
 		[InlineData("", false)]
+		[InlineData(null, false)]
 		public void EditMovieDescriptionTest(string newDescription, bool expected)
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");

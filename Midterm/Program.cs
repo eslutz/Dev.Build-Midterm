@@ -47,6 +47,8 @@ namespace Midterm
 					case 4:
 						runProgram = false;
 						break;
+					default:
+						break;
 				}
 				Console.Clear();
 			} while (runProgram); 
@@ -172,6 +174,8 @@ namespace Midterm
 					catalog.SortMovies("year");
 					break;
 				case 6:
+					break;
+				default:
 					break;
 			}
 		}
@@ -426,6 +430,8 @@ namespace Midterm
 					AdminRemoveMovie(catalog);
 					break;
 				case 4:
+					break;
+				default:
 					break;
 			}
 		}
@@ -762,6 +768,8 @@ namespace Midterm
 								Console.Write($"{"=>",-4}");
 								description = Console.ReadLine();
 							}
+							break;
+						default:
 							break;
 					}
 					Console.SetCursorPosition(0, 5);

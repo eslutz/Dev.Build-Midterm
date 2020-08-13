@@ -175,7 +175,11 @@ namespace Midterm
 				//Clears the current cast list.  Splits the formatted string that was passed into an array that can then be accessed and added to the cast list.  Returns false if Regex match fails, otherwise true.
 				case "cast":
 					Regex castValidation = new Regex(@"^(([A-Za-z]+(\s[A-Za-z]+)?,\s){0,2}[A-Za-z]+(\s[A-Za-z]+)?)$");
-					if (castValidation.IsMatch(newValue))
+					if(newValue == null)
+					{
+						converted = false;
+					}
+					else if (castValidation.IsMatch(newValue))
 					{
 						Cast.Clear();
 						string[] newCast = newValue.Split(", ");
