@@ -23,15 +23,6 @@ namespace Midterm.Test
 		}
 
 		[Fact]
-		public void GetMovieTest()
-		{
-			MovieCatalog test = new MovieCatalog();
-			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
-
-			Assert.IsType<Movie>(test.GetMovie(1));
-		}
-
-		[Fact]
 		public void RemoveMovieTest()
 		{
 			MovieCatalog test = new MovieCatalog();
@@ -39,6 +30,26 @@ namespace Midterm.Test
 			test.RemoveMovie(1);
 
 			Assert.Equal(0, test.MovieCount());
+		}
+
+		[Fact]
+		public void MovieCountTest()
+		{
+			MovieCatalog test = new MovieCatalog();
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
+
+			Assert.Equal(3, test.MovieCount());
+		}
+
+		[Fact]
+		public void GetMovieTest()
+		{
+			MovieCatalog test = new MovieCatalog();
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
+
+			Assert.IsType<Movie>(test.GetMovie(1));
 		}
 
 		[Fact]
