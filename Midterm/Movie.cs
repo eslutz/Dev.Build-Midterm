@@ -109,8 +109,9 @@ namespace Midterm
 		}
 
 		//EditMovie method takes arguments for field to be edited and the replacement value when called.  All input validated before calling the method.
-		public void EditMovie(string selectedField, string newValue)
+		public bool EditMovie(string selectedField, string newValue)
 		{
+			bool converted = true;
 			//Based to the passed argument, determines which field to edit.
 			switch (selectedField)
 			{
@@ -120,7 +121,10 @@ namespace Midterm
 					break;
 				//Replaces genre with new value.  Ignoring the case of the passed string, parses it to a MovieGenre enum value.
 				case "genre":
-					Genre = (MovieGenre)Enum.Parse(typeof(MovieGenre), newValue, true);
+					//Genre = (MovieGenre)Enum.Parse(typeof(MovieGenre), newValue, true);
+					converted = Enum.TryParse(typeof(MovieGenre), newValue, out object convertedValue);
+					Genre = (MovieGenre)convertedValue;
+					
 					break;
 				//Replaces director with the new director.
 				case "director":
@@ -148,6 +152,7 @@ namespace Midterm
 					Description = newValue;
 					break;
 			}
+			return converted;
 		}
 	}
 }
