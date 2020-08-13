@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace Midterm
 {
@@ -82,7 +80,8 @@ namespace Midterm
 			Description = description;
 		}
 
-		//Method
+		//Methods
+		//Override the ToString to correctly format the object output.
 		public override string ToString()
 		{
 			string fullCast = "";
@@ -109,33 +108,42 @@ namespace Midterm
 			return $"{Title,-40}|{Genre,-12}|{Director,-20}|{Runtime,-8}|{ReleaseYear,-6}|{fullCast,-66}|{Description}";
 		}
 
+		//EditMovie method takes arguments for field to be edited and the replacement value when called.  All input validated before calling the method.
 		public void EditMovie(string selectedField, string newValue)
 		{
+			//Based to the passed argument, determines which field to edit.
 			switch (selectedField)
 			{
+				//Replaces title with the new title.
 				case "title":
 					Title = newValue;
 					break;
+				//Replaces genre with new value.  Ignoring the case of the passed string, parses it to a MovieGenre enum value.
 				case "genre":
 					Genre = (MovieGenre)Enum.Parse(typeof(MovieGenre), newValue, true);
 					break;
+				//Replaces director with the new director.
 				case "director":
 					Director = newValue;
 					break;
+				//Replaces the runtime.  Parses the passed string as an integer.
 				case "runtime":
 					Runtime = int.Parse(newValue);
 					break;
+				//Replaces the release year.  Parses the passed string as an integer.
 				case "year":
 					ReleaseYear = int.Parse(newValue);
 					break;
+				//Clears the current cast list.  Splits the formatted string that was passed into an array that can then be accessed and added to the cast list.
 				case "cast":
 					Cast.Clear();
 					string[] newCast = newValue.Split(", ");
-					foreach(string castMember in newCast)
+					foreach (string castMember in newCast)
 					{
 						Cast.Add(castMember);
 					}
 					break;
+				//Replaces description with the new description.
 				case "description":
 					Description = newValue;
 					break;
