@@ -105,7 +105,7 @@ namespace Midterm.Test
 		public void EditMovieCastTest2()
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			testMovie.EditMovie("cast", "Michael , Katherine Waterston, Billy Ray Crudup");
+			testMovie.EditMovie("cast", "Michael, Katherine Waterston, Billy Ray Crudup");
 			List<string> result = new List<string> { "Michael", "Katherine Waterston", "Billy Ray Crudup" };
 
 			Assert.Equal(result, testMovie.Cast);
