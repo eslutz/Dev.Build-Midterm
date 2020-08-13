@@ -18,7 +18,7 @@ namespace Midterm
 			bool moviesLoaded = GenerateDefaultMovieList(catalog);
 			if (!moviesLoaded)
 			{
-				Console.WriteLine("Please add some movies.");
+				Console.WriteLine("Please add some movies.\n");
 			}
 			//Loops through until the user quits the program.
 			bool runProgram = true;
@@ -103,7 +103,7 @@ namespace Midterm
 		//Opens a file to fill the list with starting movie values.  Returns true if sucessful.  Otherwise returns false.
 		public static bool GenerateDefaultMovieList(MovieCatalog catalog)
 		{
-			string filePath = @"C:\Users\eslutz\OneDrive - KNEX\Documents\Dev.Build(4.0)\Assessments\Midterm\Midterm\Movie List.txt";
+			string filePath = @"..\..\..\Movie List.txt";
 			if (File.Exists(filePath))
 			{
 				StreamReader sr = new StreamReader(filePath);
