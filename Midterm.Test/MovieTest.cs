@@ -14,26 +14,43 @@ namespace Midterm.Test
 			Assert.Equal(result, testMovie.ToString());
 		}
 
-		[Fact]
-		public void EditMovieTest1()
+		[Theory]
+		[InlineData("Alien: Covenant")]
+		[InlineData("aliencovenant")]
+		[InlineData(@"Alien/\Covenant")]
+		[InlineData("Alien: Covenant53")]
+		[InlineData("")]
+		public void EditMovieTitleTest(string newTitle)
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			testMovie.EditMovie("title", "Alien: Covenant");
+			testMovie.EditMovie("title", newTitle);
 
-			Assert.Equal("Alien: Covenant", testMovie.Title);
+			Assert.Equal(newTitle, testMovie.Title);
+		}
+
+		[Theory]
+		[InlineData("Action", MovieGenre.Action)]
+		[InlineData("action", MovieGenre.Action)]
+		[InlineData("ACTION", MovieGenre.Action)]
+		[InlineData("ACtiOn", MovieGenre.Action)]
+		[InlineData("Drama", MovieGenre.Drama)]
+		[InlineData("drama", MovieGenre.Drama)]
+		[InlineData("DRAMA", MovieGenre.Drama)]
+		[InlineData("dRAmA", MovieGenre.Drama)]
+		[InlineData("Horror", MovieGenre.Horror)]
+		[InlineData("horror", MovieGenre.Horror)]
+		[InlineData("HORROR", MovieGenre.Horror)]
+		[InlineData("HORror", MovieGenre.Horror)]
+		public void EditMovieGenreTest(string newGenre, MovieGenre expectedgenre)
+		{
+			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
+			testMovie.EditMovie("genre", newGenre);
+
+			Assert.Equal(expectedgenre, testMovie.Genre);
 		}
 
 		[Fact]
-		public void EditMovieTest2()
-		{
-			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			testMovie.EditMovie("genre", "thriller");
-
-			Assert.Equal(MovieGenre.Thriller, testMovie.Genre);
-		}
-
-		[Fact]
-		public void EditMovieTest3()
+		public void EditMovieDirectorTest()
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			testMovie.EditMovie("director", "Ridley Scott");
@@ -42,7 +59,7 @@ namespace Midterm.Test
 		}
 
 		[Fact]
-		public void EditMovieTest4()
+		public void EditMovieRuntimeTest()
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			testMovie.EditMovie("runtime", "122");
@@ -51,7 +68,7 @@ namespace Midterm.Test
 		}
 
 		[Fact]
-		public void EditMovieTest5()
+		public void EditMovieYearTest()
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			testMovie.EditMovie("year", "2017");
@@ -60,7 +77,7 @@ namespace Midterm.Test
 		}
 
 		[Fact]
-		public void EditMovieTest6()
+		public void EditMovieCastTest()
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			testMovie.EditMovie("cast", "Michael Fassbender, Katherine Waterston, Billy Crudup");
@@ -70,7 +87,7 @@ namespace Midterm.Test
 		}
 
 		[Fact]
-		public void EditMovieTest7()
+		public void EditMovieDescriptionTest()
 		{
 			Movie testMovie = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
 			testMovie.EditMovie("description", "The crew of a colony ship discover an uncharted planet with a threat beyond their imagination.");
