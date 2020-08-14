@@ -18,6 +18,7 @@ Night of the Living Dead,Horror,Tom Savini,1990,92,Tony Todd/Patricia Tallman/To
 Dirty Harry,Thriller,Don Siegel,1971,102,Clint Eastwood,Go ahead. Make my day.
 The Fifth Element,SciFi,Luc Besson,1997,125,Bruce Willis/Milla Jovovich/Gary Oldman/Chris Tucker,Bruce Willis in space saving the world with a loud Chris Tucker.
 Fury,Action,David Ayer,2014,134,Brad Pitt/Shia LaBeouf/Logan Lerman,Brad Pitt in a tank.
+Demolition Man,Action,Marco Brambilla,1993,115,Sylvester Stallone/Wesley Snipes/Sandra Bullock,A frozen cop is unthawed to find an old ultra-violent nemesis loose in a non-violent future society.
 Antitrust,Thriller,Peter Howitt,2001,108,Ryan Phillippe/Tim Robbins/Rachael Leigh Cook,A computer programmer confronts his muderous boss.
 Gladiator,Drama,Ridley Scott,2000,155,Russell Crowe/Joaquin Phoenix,Slicing and dicing everyone into tiny bits until he kills the Emporer.
 Hidden Figures,Drama,Theodore Melfi,2016,127,Taraji P.Henson/Octavia Spencer/Janelle Monáe/Kevin Costner,A team of women in a vital role during the early years of NASA.
@@ -31,6 +32,7 @@ Jurassic Park,Action,Steven Spielberg,1993,126,Sam Neill/Laura Dern/Jeff Goldblu
 The Martian,SciFi,Ridley Scott,2015,142,Matt Damon,Lets go rescue Matt Damon again; this time in space!
 Napoleon Dynamite,Comedy,Jared Hess,2004,94,Jon Heder/Aaron Ruell/Jon Gries/Tina Majorino,Knock it off,Napoleon! Make yourself a dang quesadilla!.
 Office Space,Comedy,Mike Judge,1999,89,Ron Livingston/David Herman/Ajay Naidu,PC Load Letter? What the fuck does that mean?
+Judge Dredd,Action,Danny Cannon,1995,96,Sylvester Stallone/Armand Assante/Rob Schneider,Stallone running around yelling I am the law!
 Outland,SciFi,Peter Hyams,1981,109,Sean Connery,A marshal at a mining colony on the Jupiter moon of Io,uncovers a drug-smuggling conspiracy.
 Predator,SciFi,John McTiernan,1987,106,Arnold Schwarzenegger/Carl Weathers/Bill Duke,A team of commandos in a jungle find themselves hunted by an alien.
 Robocop,Action,Paul Verhoeven,1987,103,Peter Weller/Nancy Allen/Kurtwood Smith,In a dystopian and crime-ridden Detroit,a robot cop rises.
@@ -50,3 +52,4 @@ Shaun of the Dead,Comedy,Edgar Wright,2004,99,Simon Pegg/Nick Frost,Zombies are 
 The Watch,Comedy,Akiva Schaffer,2012,102,Ben Stiller/Vince Vaughn/Jonah Hill/Richard Ayoade,Keeping the neighborhood safe,from aliens.
 True Lies,Action,James Cameron,1994,141,Arnold Schwarzenegger/Jamie Lee Curtis/Tom Arnold,A spy discovers his wife might be having an affair with a used-car salesman while terrorists smuggle nukes.
 Tremors,Horror,Ron Underwood,1990,96,Kevin Bacon/Fred Ward/Finn Carter/Michael Gross,They come from under the ground!
+Dredd,Action,Pete Travis,2012,95,Karl Urban/Olivia Thirlby/Lena Headey,A great movie full of wonderful action and violence!
