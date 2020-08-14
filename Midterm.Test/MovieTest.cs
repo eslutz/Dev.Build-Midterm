@@ -72,6 +72,7 @@ namespace Midterm.Test
 		[InlineData("-100", false)]
 		[InlineData("twothousand", false)]
 		[InlineData("hello", false)]
+		[InlineData("", false)]
 		[InlineData(null, false)]
 		public void EditMovieRuntimeTest(string newRuntime, bool expected)
 		{
@@ -89,6 +90,7 @@ namespace Midterm.Test
 		[InlineData("1862", false)]
 		[InlineData("twothousand", false)]
 		[InlineData("hello", false)]
+		[InlineData("", false)]
 		[InlineData(null, false)]
 		public void EditMovieYearTest(string newYear, bool expected)
 		{

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Midterm
 {
@@ -65,76 +64,148 @@ namespace Midterm
 			}
 		}
 
-		//Searches the list of movies based on the passed arguments and returns a list of the results.  All input validated before calling the method.
-		public bool SearchMovies(string searchField, string searchCriteria, out List<Movie> foundMovies)
+		//Search title.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		public bool SearchMovieTitle(string searchCriteria, out List<Movie> searchResults)
 		{
-			//Using Regex to verify the user is choosing a valid field to search.
-			Regex fieldMatch = new Regex(@"^(title)$|^(genre)$|^(director)$|^(runtime)$|^(year)$|^(cast)$");
-
-			if (string.IsNullOrEmpty(searchField) || string.IsNullOrEmpty(searchCriteria) || !fieldMatch.IsMatch(searchField))
+			bool found;
+			if (string.IsNullOrEmpty(searchCriteria))
 			{
-				foundMovies = new List<Movie>();
-				return false;
+				searchResults = new List<Movie>();
+				found = false;
 			}
 			else
 			{
-				switch (searchField)
+				searchResults = _movieList.FindAll(x => x.Title.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase));
+				if (searchResults.Count != 0)
 				{
-					//Finds movies with the matching full title, or contains a partial title, or matching letters.
-					case "title":
-						foundMovies = _movieList.FindAll(x => x.Title.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase));
-						break;
-					//Finds movies that match the genre that is passed.  Parses the argument string into a matching MovieGenre enum value for searching.
-					case "genre":
-						if (Enum.TryParse(typeof(MovieGenre), searchCriteria, true, out object convertedValue))
-						{
-							foundMovies = _movieList.FindAll(x => x.Genre.Equals((MovieGenre)convertedValue));
-						}
-						else
-						{
-							foundMovies = new List<Movie>();
-							return false;
-						}
-
-						break;
-					//Finds director with the matching full name, or contains a partial name, or matching letters.
-					case "director":
-						foundMovies = _movieList.FindAll(x => x.Director.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase));
-						break;
-					//Finds movies with runtime that matches the argument.
-					case "runtime":
-						if (int.TryParse(searchCriteria, out int convertedRuntime))
-						{
-							foundMovies = _movieList.FindAll(x => x.Runtime.Equals(convertedRuntime));
-						}
-						else
-						{
-							foundMovies = new List<Movie>();
-							return false;
-						}
-						break;
-					//Finds movies with a release year that matches the argument.  
-					case "year":
-						if(int.TryParse(searchCriteria, out int convertedYear))
-						{
-							foundMovies = _movieList.FindAll(x => x.ReleaseYear.Equals(convertedYear));
-						}
-						else
-						{
-							foundMovies = new List<Movie>();
-							return false;
-						}
-						break;
-					//Finds movies with a cast member that matches a full name, a partial name, or matching letters.
-					case "cast":
-						foundMovies = _movieList.FindAll(x => x.Cast.Any(x => x.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase)));
-						break;
-					default:
-						foundMovies = new List<Movie>();
-						break;
+					found = true;
 				}
-				return true;
+				else
+				{
+					found = false;
+				}
 			}
+			return found;
+		}
+
+		//Search genre.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		public bool SearchMovieGenre(string searchCriteria, out List<Movie> searchResults)
+		{
+			bool found;
+			if (Enum.TryParse(typeof(MovieGenre), searchCriteria, true, out object convertedValue))
+			{
+				searchResults = _movieList.FindAll(x => x.Genre.Equals((MovieGenre)convertedValue));
+				if (searchResults.Count != 0)
+				{
+					found = true;
+				}
+				else
+				{
+					found = false;
+				}
+			}
+			else
+			{
+				searchResults = new List<Movie>();
+				found = false;
+			}
+			return found;
+		}
+
+		//Search director.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		public bool SearchMovieDirector(string searchCriteria, out List<Movie> searchResults)
+		{
+			bool found;
+			if (string.IsNullOrEmpty(searchCriteria))
+			{
+				searchResults = new List<Movie>();
+				found = false;
+			}
+			else
+			{
+				searchResults = _movieList.FindAll(x => x.Director.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase));
+				if (searchResults.Count != 0)
+				{
+					found = true;
+				}
+				else
+				{
+					found = false;
+				}
+			}
+			return found;
+		}
+
+		//Search runtime.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		public bool SearchMovieRuntime(string searchCriteria, out List<Movie> searchResults)
+		{
+			bool found;
+			if (int.TryParse(searchCriteria, out int convertedRuntime) && convertedRuntime > 0)
+			{
+				searchResults = _movieList.FindAll(x => x.Runtime.Equals(convertedRuntime));
+				if (searchResults.Count != 0)
+				{
+					found = true;
+				}
+				else
+				{
+					found = false;
+				}
+			}
+			else
+			{
+				searchResults = new List<Movie>();
+				found = false;
+			}
+			return found;
+		}
+
+		//Search release year.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		public bool SearchMovieYear(string searchCriteria, out List<Movie> searchResults)
+		{
+			bool found;
+			if (int.TryParse(searchCriteria, out int convertedYear) && (convertedYear > 1885 && convertedYear <= DateTime.Now.Year))
+			{
+				searchResults = _movieList.FindAll(x => x.ReleaseYear.Equals(convertedYear));
+				if (searchResults.Count != 0)
+				{
+					found = true;
+				}
+				else
+				{
+					found = false;
+				}
+			}
+			else
+			{
+				searchResults = new List<Movie>();
+				found = false;
+			}
+			return found;
+		}
+
+		//Search cast.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		public bool SearchMovieCast(string searchCriteria, out List<Movie> searchResults)
+		{
+			bool found;
+			if (string.IsNullOrEmpty(searchCriteria))
+			{
+				searchResults = new List<Movie>();
+				found = false;
+			}
+			else
+			{
+				searchResults = _movieList.FindAll(x => x.Cast.Any(x => x.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase)));
+				if (searchResults.Count != 0)
+				{
+					found = true;
+				}
+				else
+				{
+					found = false;
+				}
+			}
+			return found;
 		}
 	}
 }

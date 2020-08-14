@@ -6,15 +6,7 @@ namespace Midterm.Test
 	public class MovieCatalogTest
 	{
 		[Fact]
-		public void AddMovieTest1()
-		{
-			MovieCatalog test = new MovieCatalog();
-
-			Assert.True(test.MovieCount() == 0);
-		}
-
-		[Fact]
-		public void AddMovieTest2()
+		public void AddMovieTest()
 		{
 			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
@@ -117,230 +109,121 @@ namespace Midterm.Test
 			Assert.True(test.GetMovie(1) == firstSortedMovie);
 		}
 
-		public static MovieCatalog expected = new MovieCatalog();
-
-		[Fact]
-		public void SearchMoviesTitleTest1()
+		[Theory]
+		[InlineData("Aliens", true)]
+		[InlineData("a", true)]
+		[InlineData("aliens", true)]
+		[InlineData("Alien", true)]
+		[InlineData("ALIEN", true)]
+		[InlineData("asdf", false)]
+		[InlineData("", false)]
+		[InlineData(null, false)]
+		public void SearchMovieTitle(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
 			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 
-
-			test.SearchMovies("title", "Alien", out List<Movie> expected);
-
+			Assert.Equal(expected, test.SearchMovieTitle(searchCriteria, out List<Movie> results));
 		}
 
-		[Fact]
-		public void SearchMoviesTitleTest2()
+		[Theory]
+		[InlineData("Action", true)]
+		[InlineData("action", true)]
+		[InlineData("ACTION", true)]
+		[InlineData("ACtiOn", true)]
+		[InlineData("horror", false)]
+		[InlineData("HORROR", false)]
+		[InlineData("horor", false)]
+		[InlineData("actin", false)]
+		[InlineData("", false)]
+		[InlineData(null, false)]
+		public void SearchMovieGenre(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
+			test.AddMovie(new Movie("Ronin", MovieGenre.Action, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 
-			Assert.Equal(expected, test.SearchMovies("title", "alien"));
+			Assert.Equal(expected, test.SearchMovieGenre(searchCriteria, out List<Movie> results));
 		}
 
-		[Fact]
-		public void SearchMoviesTitleTest3()
+		[Theory]
+		[InlineData("James Cameron", true)]
+		[InlineData("james cameron", true)]
+		[InlineData("James", true)]
+		[InlineData("Cameron", true)]
+		[InlineData("ridlEY53", false)]
+		[InlineData("", false)]
+		[InlineData(null, false)]
+		public void SearchMovieDirector(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
+			test.AddMovie(new Movie("Ronin", MovieGenre.Action, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 
-			Assert.Equal(expected, test.SearchMovies("title", "al"));
+			Assert.Equal(expected, test.SearchMovieDirector(searchCriteria, out List<Movie> results));
 		}
 
-		[Fact]
-		public void SearchMoviesGenreTest1()
+		[Theory]
+		[InlineData("121", true)]
+		[InlineData("10", false)]
+		[InlineData("100000", false)]
+		[InlineData("137", true)]
+		[InlineData("0", false)]
+		[InlineData("-100", false)]
+		[InlineData("twothousand", false)]
+		[InlineData("", false)]
+		[InlineData(null, false)]
+		public void SearchMovieRuntime(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
+			test.AddMovie(new Movie("Ronin", MovieGenre.Action, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 
-			Assert.Equal(expected, test.SearchMovies("genre", "SciFi"));
+			Assert.Equal(expected, test.SearchMovieRuntime(searchCriteria, out List<Movie> results));
 		}
 
-		[Fact]
-		public void SearchMoviesGenreTest2()
+		[Theory]
+		[InlineData("2017", false)]
+		[InlineData("1986", true)]
+		[InlineData("1965", false)]
+		[InlineData("2007", true)]
+		[InlineData("0", false)]
+		[InlineData("1862", false)]
+		[InlineData("twothousand", false)]
+		[InlineData("", false)]
+		[InlineData(null, false)]
+		public void SearchMovieYear(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
+			test.AddMovie(new Movie("Ronin", MovieGenre.Action, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 
-			Assert.Equal(expected, test.SearchMovies("genre", "scifi"));
+			Assert.Equal(expected, test.SearchMovieYear(searchCriteria, out List<Movie> results));
 		}
 
-		[Fact]
-		public void SearchMoviesDirectorTest1()
+		[Theory]
+		[InlineData("Sigourney Weaver", true)]
+		[InlineData("sigourney weaver", true)]
+		[InlineData("Sigourney", true)]
+		[InlineData("Weaver", true)]
+		[InlineData("W", true)]
+		[InlineData("Scott", false)]
+		[InlineData("", false)]
+		[InlineData(null, false)]
+		public void SearchMovieCast(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
+			test.AddMovie(new Movie("Ronin", MovieGenre.Action, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
 
-			Assert.Equal(expected, test.SearchMovies("director", "James"));
-		}
-
-		[Fact]
-		public void SearchMoviesDirectorTest2()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("director", "james"));
-		}
-
-		[Fact]
-		public void SearchMoviesDirectorTest3()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("director", "Cameron"));
-		}
-
-		[Fact]
-		public void SearchMoviesDirectorTest4()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("director", "James Cameron"));
-		}
-
-		[Fact]
-		public void SearchMoviesDirectorTest5()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult1 = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			Movie movieSearchResult2 = new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe.");
-			test.AddMovie(movieSearchResult1);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Fudge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(movieSearchResult2);
-			List<Movie> expected = new List<Movie> { movieSearchResult1, movieSearchResult2 };
-
-			Assert.Equal(expected, test.SearchMovies("director", "J"));
-		}
-
-		[Fact]
-		public void SearchMoviesRuntimeTest()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("runtime", "137"));
-		}
-
-		[Fact]
-		public void SearchMoviesYearTest()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("year", "1986"));
-		}
-
-		[Fact]
-		public void SearchMoviesCastTest1()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("cast", "Sigourney Weaver"));
-		}
-
-		[Fact]
-		public void SearchMoviesCastTest2()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("cast", "sigourney weaver"));
-		}
-
-		[Fact]
-		public void SearchMoviesCastTest3()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("cast", "Sigourney"));
-		}
-
-		[Fact]
-		public void SearchMoviesCastTest4()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			test.AddMovie(movieSearchResult);
-			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
-
-			Assert.Equal(expected, test.SearchMovies("cast", "Weaver"));
-		}
-
-		[Fact]
-		public void SearchMoviesCastTest5()
-		{
-			MovieCatalog test = new MovieCatalog();
-			Movie movieSearchResult1 = new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space.");
-			Movie movieSearchResult2 = new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in.");
-			test.AddMovie(movieSearchResult1);
-			test.AddMovie(movieSearchResult2);
-			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult1, movieSearchResult2 };
-
-			Assert.Equal(expected, test.SearchMovies("cast", "W"));
+			Assert.Equal(expected, test.SearchMovieCast(searchCriteria, out List<Movie> results));
 		}
 	}
 }
