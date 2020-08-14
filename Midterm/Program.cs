@@ -183,8 +183,7 @@ namespace Midterm
 		//Seraches and displays the movies found, if any, based on the validated user input for the search criteria.
 		public static void SearchMovies(MovieCatalog catalog)
 		{
-			//Using Regex to verify the user is choosing a valid field to search.
-			Regex fieldMatch = new Regex(@"^(title)$|^(genre)$|^(director)$|^(runtime)$|^(year)$|^(cast)$");
+			
 			string allFields = "Title/Genre/Director/Runtime/Year/Cast";
 			Console.WriteLine($"What would you like to search ({allFields})?");
 			Console.Write($"{"=>",-4}");

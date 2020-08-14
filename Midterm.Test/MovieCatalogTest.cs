@@ -127,9 +127,10 @@ namespace Midterm.Test
 			test.AddMovie(movieSearchResult);
 			test.AddMovie(new Movie("Idiocracy", MovieGenre.Documentary, "Mike Judge", 2007, 84, new List<string> { "Luke Wilson", "Maya Rudolph", "Dax Shepard", "Terry Crews" }, "The world we live in."));
 			test.AddMovie(new Movie("Ronin", MovieGenre.Thriller, "John Frankenheimer", 1998, 121, new List<string> { "Robert De Niro", "Jean Reno", "Natascha McElhone" }, "Fight over a mysterious package with great car chases in Europe."));
-			List<Movie> expected = new List<Movie> { movieSearchResult };
 
-			Assert.Equal(expected, test.SearchMovies("title", "Alien"));
+
+			test.SearchMovies("title", "Alien", out List<Movie> expected);
+
 		}
 
 		[Fact]
