@@ -53,7 +53,7 @@ namespace Midterm
 				Console.Clear();
 			} while (runProgram); 
 			
-			Console.WriteLine("Thanks for going though the Movie Listing Mania!");
+			Console.WriteLine("Thanks for going through the Movie Listing Mania!");
 		}
 
 		//Displays formatted output of all the movies in the list.
