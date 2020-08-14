@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Midterm
 {
@@ -109,45 +110,104 @@ namespace Midterm
 		}
 
 		//EditMovie method takes arguments for field to be edited and the replacement value when called.  All input validated before calling the method.
-		public void EditMovie(string selectedField, string newValue)
+		public bool EditMovie(string selectedField, string newValue)
 		{
+			bool converted = true;
 			//Based to the passed argument, determines which field to edit.
 			switch (selectedField)
 			{
-				//Replaces title with the new title.
+				//Replaces title with the new title and returns true.  Returns false if input is empty.
 				case "title":
-					Title = newValue;
+					if(string.IsNullOrEmpty(newValue))
+					{
+						converted = false;
+					}
+					else
+					{
+						Title = newValue;
+						converted = true;
+					}
 					break;
-				//Replaces genre with new value.  Ignoring the case of the passed string, parses it to a MovieGenre enum value.
+				//Replaces genre with new value.  Ignoring the case of the passed string, parses it to a MovieGenre enum value.  Returns true if it can convert, otherwise false.
 				case "genre":
-					Genre = (MovieGenre)Enum.Parse(typeof(MovieGenre), newValue, true);
+					converted = Enum.TryParse(typeof(MovieGenre), newValue, true, out object convertedValue);
+					if (converted)
+					{
+						Genre = (MovieGenre)convertedValue;
+					}
 					break;
 				//Replaces director with the new director.
 				case "director":
-					Director = newValue;
-					break;
-				//Replaces the runtime.  Parses the passed string as an integer.
-				case "runtime":
-					Runtime = int.Parse(newValue);
-					break;
-				//Replaces the release year.  Parses the passed string as an integer.
-				case "year":
-					ReleaseYear = int.Parse(newValue);
-					break;
-				//Clears the current cast list.  Splits the formatted string that was passed into an array that can then be accessed and added to the cast list.
-				case "cast":
-					Cast.Clear();
-					string[] newCast = newValue.Split(", ");
-					foreach (string castMember in newCast)
+					if (string.IsNullOrEmpty(newValue))
 					{
-						Cast.Add(castMember);
+						converted = false;
+					}
+					else
+					{
+						Director = newValue;
+						converted = true;
+					}
+					break;
+				//Replaces the runtime.  Parses the passed string as an integer.  Returns true if it can convert and greater than zero, otherwise false.
+				case "runtime":
+					converted = int.TryParse(newValue, out int newRuntime);
+					if(newRuntime <= 0)
+					{
+						converted = false;
+					}
+					else
+					{
+						Runtime = newRuntime;
+					}
+					break;
+				//Replaces the release year.  Parses the passed string as an integer.  Returns true if it can convert and within range, otherwise false.
+				case "year":
+					converted = int.TryParse(newValue, out int newYear);
+					if (newYear < 1895 || newYear > DateTime.Now.Year)
+					{
+						converted = false;
+					}
+					else
+					{
+						Runtime = newYear;
+					}
+					break;
+				//Clears the current cast list.  Splits the formatted string that was passed into an array that can then be accessed and added to the cast list.  Returns false if Regex match fails, otherwise true.
+				case "cast":
+					Regex castValidation = new Regex(@"^(([A-Za-z]+(\s[A-Za-z]+)?,\s){0,2}[A-Za-z]+(\s[A-Za-z]+)?)$");
+					if(newValue == null)
+					{
+						converted = false;
+					}
+					else if (castValidation.IsMatch(newValue))
+					{
+						Cast.Clear();
+						string[] newCast = newValue.Split(", ");
+						foreach (string castMember in newCast)
+						{
+							Cast.Add(castMember);
+						}
+						converted = true;
+					}
+					else
+					{
+						converted = false;
 					}
 					break;
 				//Replaces description with the new description.
 				case "description":
-					Description = newValue;
+					if (string.IsNullOrEmpty(newValue))
+					{
+						converted = false;
+					}
+					else
+					{
+						Description = newValue;
+						converted = true;
+					}
 					break;
 			}
+			return converted;
 		}
 	}
 }

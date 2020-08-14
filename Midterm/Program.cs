@@ -47,6 +47,8 @@ namespace Midterm
 					case 4:
 						runProgram = false;
 						break;
+					default:
+						break;
 				}
 				Console.Clear();
 			} while (runProgram); 
@@ -172,6 +174,8 @@ namespace Midterm
 					catalog.SortMovies("year");
 					break;
 				case 6:
+					break;
+				default:
 					break;
 			}
 		}
@@ -427,6 +431,8 @@ namespace Midterm
 					break;
 				case 4:
 					break;
+				default:
+					break;
 			}
 		}
 
@@ -648,7 +654,7 @@ namespace Midterm
 							Console.WriteLine("\nEnter the movie title.");
 							Console.Write($"{"=>",-4}");
 							string title = Console.ReadLine();
-							while (string.IsNullOrEmpty(title))
+							while (!catalog.GetMovie(index).EditMovie(editField, title))
 							{
 								Console.SetCursorPosition(0, 5);
 								Console.Write("Title cannot be blank.");
@@ -658,7 +664,6 @@ namespace Midterm
 								Console.Write($"{"=>",-4}");
 								title = Console.ReadLine();
 							}
-							catalog.GetMovie(index).EditMovie(editField, title);
 							break;
 						//Edit genre.  Validates that the user picks one of the existing genres available.
 						case "genre":
@@ -672,7 +677,7 @@ namespace Midterm
 							Console.WriteLine($"\nEnter the movie genre ({allGenres}).");
 							Console.Write($"{"=>",-4}");
 							string genre = Console.ReadLine().ToLower();
-							while (!genres.Any(x => x.Equals(genre, StringComparison.OrdinalIgnoreCase)) || string.IsNullOrEmpty(genre))
+							while (!catalog.GetMovie(index).EditMovie(editField, genre))
 							{
 								Console.SetCursorPosition(0, 5);
 								Console.Write("That is not a valid genre.");
@@ -682,14 +687,14 @@ namespace Midterm
 								Console.Write($"{"=>",-4}");
 								genre = Console.ReadLine().ToLower();
 							}
-							catalog.GetMovie(index).EditMovie(editField, genre);
+							
 							break;
 						//Edit director.  Validates that the new director isn't blank.
 						case "director":
 							Console.WriteLine($"\nEnter the movie director.");
 							Console.Write($"{"=>",-4}");
 							string director = Console.ReadLine();
-							while (string.IsNullOrEmpty(director))
+							while (!catalog.GetMovie(index).EditMovie(editField, director))
 							{
 								Console.SetCursorPosition(0, 5);
 								Console.Write("Director cannot be blank.");
@@ -699,14 +704,13 @@ namespace Midterm
 								Console.Write($"{"=>",-4}");
 								director = Console.ReadLine();
 							}
-							catalog.GetMovie(index).EditMovie(editField, director);
 							break;
 						//Edit runtime.  Validates that the new runtime is greater than zero.
 						case "runtime":
 							Console.WriteLine("\nEnter the movie runtime (in minutes).");
 							Console.Write($"{"=>",-4}");
-							isValid = int.TryParse(Console.ReadLine(), out int runtime);
-							while (!isValid || runtime <= 0)
+							string runtime = Console.ReadLine();
+							while (!catalog.GetMovie(index).EditMovie(editField, runtime))
 							{
 								Console.SetCursorPosition(0, 5);
 								Console.Write("That is not a valid runtime.");
@@ -714,61 +718,31 @@ namespace Midterm
 								Console.Write(new string(' ', Console.WindowWidth));
 								Console.SetCursorPosition(0, 7);
 								Console.Write($"{"=>",-4}");
-								isValid = int.TryParse(Console.ReadLine(), out runtime);
+								runtime = Console.ReadLine();
 							}
-							catalog.GetMovie(index).EditMovie(editField, runtime.ToString());
 							break;
 						//Edit release year.  Verifies that the year is not in the future or before the first film was made.
 						case "year":
 							Console.WriteLine("\nEnter the release year.");
 							Console.Write($"{"=>",-4}");
-							isValid = int.TryParse(Console.ReadLine(), out int year);
-							while (!isValid || year < 1895 || year > DateTime.Now.Year)
+							string year = Console.ReadLine();
+							while (!catalog.GetMovie(index).EditMovie(editField, year))
 							{
-								if (isValid && year < 1895)
-								{
-									Console.SetCursorPosition(0, 5);
-									Console.Write("The release year must be after the first film in 1895.");
-									Console.SetCursorPosition(0, 7);
-									Console.Write(new string(' ', Console.WindowWidth));
-									Console.SetCursorPosition(0, 7);
-									Console.Write($"{"=>",-4}");
-									isValid = int.TryParse(Console.ReadLine(), out year);
-								}
-								else if (isValid && year > DateTime.Now.Year)
-								{
-									Console.SetCursorPosition(0, 5);
-									Console.Write("The release year cannot be in the future.");
-									Console.SetCursorPosition(0, 7);
-									Console.Write(new string(' ', Console.WindowWidth));
-									Console.SetCursorPosition(0, 7);
-									Console.Write($"{"=>",-4}");
-									isValid = int.TryParse(Console.ReadLine(), out year);
-								}
-								else
-								{
-									Console.SetCursorPosition(0, 5);
-									Console.Write("That is not a valid year.");
-									Console.SetCursorPosition(0, 7);
-									Console.Write(new string(' ', Console.WindowWidth));
-									Console.SetCursorPosition(0, 7);
-									Console.Write($"{"=>",-4}");
-									isValid = int.TryParse(Console.ReadLine(), out year);
-								}
 								Console.SetCursorPosition(0, 5);
+								Console.Write("The release year cannot be in the future and must be after the first film in 1895.");
+								Console.SetCursorPosition(0, 7);
 								Console.Write(new string(' ', Console.WindowWidth));
-								Console.SetCursorPosition(0, 5);
+								Console.SetCursorPosition(0, 7);
+								Console.Write($"{"=>",-4}");
+								year = Console.ReadLine();
 							}
-							catalog.GetMovie(index).EditMovie(editField, year.ToString());
 							break;
 						//Edit cast.  Verifies that at least one to three cast members are entered.
 						case "cast":
-							//Use regex to make sure cast entry is formatted correctly to be passed to the edit method.
-							Regex castValidation = new Regex(@"^(([A-Za-z]+(\s[A-Za-z]+)?,\s){0,2}[A-Za-z]+(\s[A-Za-z]+)?)$");
 							Console.WriteLine("\nEnter up to three cast members (cast1, cast2, cast3).");
 							Console.Write($"{"=>",-4}");
 							string cast = Console.ReadLine();
-							while (!castValidation.IsMatch(cast))
+							while (!catalog.GetMovie(index).EditMovie(editField, cast))
 							{
 								Console.SetCursorPosition(0, 5);
 								Console.Write("That is not a valid option.");
@@ -778,14 +752,13 @@ namespace Midterm
 								Console.Write($"{"=>",-4}");
 								cast = Console.ReadLine();
 							}
-							catalog.GetMovie(index).EditMovie(editField, cast);
 							break;
 						//Edit description.  Validates that the new description isn't blank.
 						case "description":
 							Console.WriteLine("\nEnter the movie description.");
 							Console.Write($"{"=>",-4}");
 							string description = Console.ReadLine();
-							while (string.IsNullOrEmpty(description))
+							while (!catalog.GetMovie(index).EditMovie(editField, description))
 							{
 								Console.SetCursorPosition(0, 5);
 								Console.Write("Description cannot be blank.");
@@ -795,9 +768,13 @@ namespace Midterm
 								Console.Write($"{"=>",-4}");
 								description = Console.ReadLine();
 							}
-							catalog.GetMovie(index).EditMovie(editField, description);
+							break;
+						default:
 							break;
 					}
+					Console.SetCursorPosition(0, 5);
+					Console.Write(new string(' ', Console.WindowWidth));
+					Console.SetCursorPosition(0, 8);
 					//Asks user if they want to edit continue editing this movie and validates their input.
 					Console.WriteLine("\nDo you want to edit another field (y/n)?");
 					Console.Write($"{"=>",-4}");

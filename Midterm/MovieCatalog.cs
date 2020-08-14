@@ -59,6 +59,8 @@ namespace Midterm
 				case "year":
 					_movieList = _movieList.OrderBy(movie => movie.ReleaseYear).ToList();
 					break;
+				default:
+					break;
 			}
 		}
 
@@ -91,6 +93,8 @@ namespace Midterm
 				//Finds movies with a cast member that matches a full name, a partial name, or matching letters.
 				case "cast":
 					foundMovies = _movieList.FindAll(x => x.Cast.Any(x => x.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase)));
+					break;
+				default:
 					break;
 			}
 			return foundMovies;
