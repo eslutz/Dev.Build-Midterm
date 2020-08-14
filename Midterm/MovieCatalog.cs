@@ -76,33 +76,19 @@ namespace Midterm
 			else
 			{
 				searchResults = _movieList.FindAll(x => x.Title.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase));
-				if (searchResults.Count != 0)
-				{
-					found = true;
-				}
-				else
-				{
-					found = false;
-				}
+				found = true;
 			}
 			return found;
 		}
 
-		//Search genre.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		//Search genre.  Returns false if invalid search criteria.  Otherwise, returns true.  Outputs results to a list, empyty if nothing found.
 		public bool SearchMovieGenre(string searchCriteria, out List<Movie> searchResults)
 		{
 			bool found;
 			if (Enum.TryParse(typeof(MovieGenre), searchCriteria, true, out object convertedValue))
 			{
 				searchResults = _movieList.FindAll(x => x.Genre.Equals((MovieGenre)convertedValue));
-				if (searchResults.Count != 0)
-				{
-					found = true;
-				}
-				else
-				{
-					found = false;
-				}
+				found = true;
 			}
 			else
 			{
@@ -112,7 +98,7 @@ namespace Midterm
 			return found;
 		}
 
-		//Search director.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		//Search director.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list, empyty if nothing found.
 		public bool SearchMovieDirector(string searchCriteria, out List<Movie> searchResults)
 		{
 			bool found;
@@ -124,33 +110,19 @@ namespace Midterm
 			else
 			{
 				searchResults = _movieList.FindAll(x => x.Director.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase));
-				if (searchResults.Count != 0)
-				{
-					found = true;
-				}
-				else
-				{
-					found = false;
-				}
+				found = true;
 			}
 			return found;
 		}
 
-		//Search runtime.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		//Search runtime.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list, empyty if nothing found.
 		public bool SearchMovieRuntime(string searchCriteria, out List<Movie> searchResults)
 		{
 			bool found;
 			if (int.TryParse(searchCriteria, out int convertedRuntime) && convertedRuntime > 0)
 			{
 				searchResults = _movieList.FindAll(x => x.Runtime.Equals(convertedRuntime));
-				if (searchResults.Count != 0)
-				{
-					found = true;
-				}
-				else
-				{
-					found = false;
-				}
+				found = true;
 			}
 			else
 			{
@@ -160,21 +132,14 @@ namespace Midterm
 			return found;
 		}
 
-		//Search release year.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		//Search release year.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list, empyty if nothing found.
 		public bool SearchMovieYear(string searchCriteria, out List<Movie> searchResults)
 		{
 			bool found;
 			if (int.TryParse(searchCriteria, out int convertedYear) && (convertedYear > 1885 && convertedYear <= DateTime.Now.Year))
 			{
 				searchResults = _movieList.FindAll(x => x.ReleaseYear.Equals(convertedYear));
-				if (searchResults.Count != 0)
-				{
-					found = true;
-				}
-				else
-				{
-					found = false;
-				}
+				found = true;
 			}
 			else
 			{
@@ -184,7 +149,7 @@ namespace Midterm
 			return found;
 		}
 
-		//Search cast.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list.
+		//Search cast.  Returns false if invalid search criteria or no results found.  Otherwise, returns true.  Outputs results to a list, empyty if nothing found.
 		public bool SearchMovieCast(string searchCriteria, out List<Movie> searchResults)
 		{
 			bool found;
@@ -196,14 +161,7 @@ namespace Midterm
 			else
 			{
 				searchResults = _movieList.FindAll(x => x.Cast.Any(x => x.Contains(searchCriteria, StringComparison.OrdinalIgnoreCase)));
-				if (searchResults.Count != 0)
-				{
-					found = true;
-				}
-				else
-				{
-					found = false;
-				}
+				found = true;
 			}
 			return found;
 		}

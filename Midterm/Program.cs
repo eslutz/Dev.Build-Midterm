@@ -206,6 +206,7 @@ namespace Midterm
 			Console.SetCursorPosition(0, 0);
 			//Based on the field the user picks, appropriate followup question is asked to get the validated search criteria from the user.
 			string searchCriteria;
+			List<Movie> searchResults = new List<Movie>();
 			switch (searchField)
 			{
 				//Search titles.  Search criteria cannot be blank.  User can enter a full title, partial title, or a letter to get any movie that contains that entry.
@@ -213,7 +214,7 @@ namespace Midterm
 					Console.WriteLine("\nEnter the title you would like to search for.");
 					Console.Write($"{"=>",-4}");
 					searchCriteria = Console.ReadLine();
-					while (string.IsNullOrEmpty(searchCriteria))
+					while (!catalog.SearchMovieTitle(searchCriteria, out searchResults))
 					{
 						Console.SetCursorPosition(0, 0);
 						Console.Write("Title search criteria cannot be blank.");
@@ -237,28 +238,15 @@ namespace Midterm
 					Console.Write($"{"=>",-4}");
 					searchCriteria = Console.ReadLine().ToLower();
 					//Verifies the user didn't leave the criteria blank and that the users input matches one of the existing genres.
-					while (!genres.Any(x => x.Equals(searchCriteria, StringComparison.OrdinalIgnoreCase)) || string.IsNullOrEmpty(searchCriteria))
+					while (!catalog.SearchMovieGenre(searchCriteria, out searchResults))
 					{
-						if (string.IsNullOrEmpty(searchCriteria))
-						{
-							Console.SetCursorPosition(0, 0);
-							Console.Write("Genre search criteria cannot be blank.");
-							Console.SetCursorPosition(0, 2);
-							Console.Write(new string(' ', Console.WindowWidth));
-							Console.SetCursorPosition(0, 2);
-							Console.Write($"{"=>",-4}");
-							searchCriteria = Console.ReadLine().ToLower();
-						}
-						else
-						{
-							Console.SetCursorPosition(0, 0);
-							Console.Write("That is not a valid genre.");
-							Console.SetCursorPosition(0, 2);
-							Console.Write(new string(' ', Console.WindowWidth));
-							Console.SetCursorPosition(0, 2);
-							Console.Write($"{"=>",-4}");
-							searchCriteria = Console.ReadLine().ToLower();
-						}
+						Console.SetCursorPosition(0, 0);
+						Console.Write("That is not a valid genre.");
+						Console.SetCursorPosition(0, 2);
+						Console.Write(new string(' ', Console.WindowWidth));
+						Console.SetCursorPosition(0, 2);
+						Console.Write($"{"=>",-4}");
+						searchCriteria = Console.ReadLine().ToLower();
 					}
 					break;
 				//Search director.  Search criteria cannot be blank.  User can enter a full name, a partial name, or a letter to get any director that contains that entry.
@@ -266,7 +254,7 @@ namespace Midterm
 					Console.WriteLine($"\nEnter the movie director you would like to search for.");
 					Console.Write($"{"=>",-4}");
 					searchCriteria = Console.ReadLine();
-					while (string.IsNullOrEmpty(searchCriteria))
+					while (!catalog.SearchMovieDirector(searchCriteria, out searchResults))
 					{
 						Console.SetCursorPosition(0, 0);
 						Console.Write("Director search criteria cannot be blank.");
@@ -281,8 +269,8 @@ namespace Midterm
 				case "runtime":
 					Console.WriteLine("\nEnter the movie runtime (in minutes) you would like to search for.");
 					Console.Write($"{"=>",-4}");
-					bool isValid = int.TryParse(Console.ReadLine(), out int runtime);
-					while (!isValid || runtime <= 0)
+					searchCriteria = Console.ReadLine();
+					while (!catalog.SearchMovieRuntime(searchCriteria, out searchResults))
 					{
 						Console.SetCursorPosition(0, 0);
 						Console.Write("That is not a valid runtime.");
@@ -290,59 +278,31 @@ namespace Midterm
 						Console.Write(new string(' ', Console.WindowWidth));
 						Console.SetCursorPosition(0, 2);
 						Console.Write($"{"=>",-4}");
-						isValid = int.TryParse(Console.ReadLine(), out runtime);
+						searchCriteria = Console.ReadLine();
 					}
-					searchCriteria = runtime.ToString();
 					break;
 				//Search release year.  Search criteria must be the same year or later than the first film and cannot be greater than the current year.  Finds any movie with that exact release year.
 				case "year":
 					Console.WriteLine("\nEnter the release year you would like to search for.");
 					Console.Write($"{"=>",-4}");
-					isValid = int.TryParse(Console.ReadLine(), out int year);
-					while (!isValid || year < 1895 || year > DateTime.Now.Year)
+					searchCriteria = Console.ReadLine();
+					while (!catalog.SearchMovieYear(searchCriteria, out searchResults))
 					{
-						if (isValid && year < 1895)
-						{
-							Console.SetCursorPosition(0, 0);
-							Console.Write("The release year must be after the first film in 1895.");
-							Console.SetCursorPosition(0, 2);
-							Console.Write(new string(' ', Console.WindowWidth));
-							Console.SetCursorPosition(0, 2);
-							Console.Write($"{"=>",-4}");
-							isValid = int.TryParse(Console.ReadLine(), out year);
-						}
-						else if (isValid && year > DateTime.Now.Year)
-						{
-							Console.SetCursorPosition(0, 0);
-							Console.Write("The release year cannot be in the future.");
-							Console.SetCursorPosition(0, 2);
-							Console.Write(new string(' ', Console.WindowWidth));
-							Console.SetCursorPosition(0, 2);
-							Console.Write($"{"=>",-4}");
-							isValid = int.TryParse(Console.ReadLine(), out year);
-						}
-						else
-						{
-							Console.SetCursorPosition(0, 0);
-							Console.Write("That is not a valid year.");
-							Console.SetCursorPosition(0, 2);
-							Console.Write(new string(' ', Console.WindowWidth));
-							Console.SetCursorPosition(0, 2);
-							Console.Write($"{"=>",-4}");
-							isValid = int.TryParse(Console.ReadLine(), out year);
-						}
 						Console.SetCursorPosition(0, 0);
+						Console.Write("The release year cannot be in the future and must be after the first film in 1895.");
+						Console.SetCursorPosition(0, 2);
 						Console.Write(new string(' ', Console.WindowWidth));
-						Console.SetCursorPosition(0, 0);
+						Console.SetCursorPosition(0, 2);
+						Console.Write($"{"=>",-4}");
+						searchCriteria = Console.ReadLine();
 					}
-					searchCriteria = year.ToString();
 					break;
 				//Search cast.  Search criteria cannot be blank.  User can enter a full name, a partial name, or a letter to get any cast member that contains that entry.
 				case "cast":
 					Console.WriteLine($"\nEnter the movie cast member you would like to search for.");
 					Console.Write($"{"=>",-4}");
 					searchCriteria = Console.ReadLine();
-					while (string.IsNullOrEmpty(searchCriteria))
+					while (!catalog.SearchMovieCast(searchCriteria, out searchResults))
 					{
 						Console.SetCursorPosition(0, 0);
 						Console.Write("Cast member search criteria cannot be blank.");
@@ -354,7 +314,6 @@ namespace Midterm
 					}
 					break;
 				default:
-					searchCriteria = "";
 					break;
 			}
 			Console.SetCursorPosition(0, 0);
@@ -363,24 +322,23 @@ namespace Midterm
 			Console.Write(new string(' ', Console.WindowWidth));
 			Console.SetCursorPosition(0, 0);
 			//Calls search method with the validated field and criteria and retuns a list of the matched movies.
-			//List<Movie> searchResult = catalog.SearchMovies(searchField, searchCriteria);
-			List<Movie> searchResult = new List<Movie>();
+
 			//Checks if the list contains any results and prints out the movies.
-			if (searchResult.Count != 0)
+			if (searchResults.Count != 0)
 			{
 				Console.WriteLine($"{"",-4}{"Title",-40}|{"Genre",-12}|{"Director",-20}|{"Runtime",-8}|{"Year",-6}|{"Cast",-66}|{"Description"}");
 				Console.WriteLine($"{new string('*', 44)}|{new string('*', 12)}|{new string('*', 20)}|{new string('*', 8)}|{new string('*', 6)}|{new string('*', 66)}|{new string('*', 40)}");
-				for (int index = 1; index <= searchResult.Count; index++)
+				for (int index = 1; index <= searchResults.Count; index++)
 				{
 					if (index % 2 == 0)
 					{
 						Console.ForegroundColor = ConsoleColor.Cyan;
-						Console.WriteLine($"{$"{index}.",-4}{searchResult[index - 1]}");
+						Console.WriteLine($"{$"{index}.",-4}{searchResults[index - 1]}");
 						Console.ResetColor();
 					}
 					else
 					{
-						Console.WriteLine($"{$"{index}.",-4}{searchResult[index - 1]}");
+						Console.WriteLine($"{$"{index}.",-4}{searchResults[index - 1]}");
 					}
 				}
 				Console.WriteLine($"{new string('*', 202)}");

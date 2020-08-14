@@ -115,7 +115,7 @@ namespace Midterm.Test
 		[InlineData("aliens", true)]
 		[InlineData("Alien", true)]
 		[InlineData("ALIEN", true)]
-		[InlineData("asdf", false)]
+		[InlineData("asdf", true)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
 		public void SearchMovieTitle(string searchCriteria, bool expected)
@@ -133,8 +133,8 @@ namespace Midterm.Test
 		[InlineData("action", true)]
 		[InlineData("ACTION", true)]
 		[InlineData("ACtiOn", true)]
-		[InlineData("horror", false)]
-		[InlineData("HORROR", false)]
+		[InlineData("horror", true)]
+		[InlineData("HORROR", true)]
 		[InlineData("horor", false)]
 		[InlineData("actin", false)]
 		[InlineData("", false)]
@@ -154,7 +154,7 @@ namespace Midterm.Test
 		[InlineData("james cameron", true)]
 		[InlineData("James", true)]
 		[InlineData("Cameron", true)]
-		[InlineData("ridlEY53", false)]
+		[InlineData("ridlEY53", true)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
 		public void SearchMovieDirector(string searchCriteria, bool expected)
@@ -169,8 +169,8 @@ namespace Midterm.Test
 
 		[Theory]
 		[InlineData("121", true)]
-		[InlineData("10", false)]
-		[InlineData("100000", false)]
+		[InlineData("10", true)]
+		[InlineData("100000", true)]
 		[InlineData("137", true)]
 		[InlineData("0", false)]
 		[InlineData("-100", false)]
@@ -188,9 +188,9 @@ namespace Midterm.Test
 		}
 
 		[Theory]
-		[InlineData("2017", false)]
+		[InlineData("2017", true)]
 		[InlineData("1986", true)]
-		[InlineData("1965", false)]
+		[InlineData("1965", true)]
 		[InlineData("2007", true)]
 		[InlineData("0", false)]
 		[InlineData("1862", false)]
@@ -213,7 +213,7 @@ namespace Midterm.Test
 		[InlineData("Sigourney", true)]
 		[InlineData("Weaver", true)]
 		[InlineData("W", true)]
-		[InlineData("Scott", false)]
+		[InlineData("Scott", true)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
 		public void SearchMovieCast(string searchCriteria, bool expected)
