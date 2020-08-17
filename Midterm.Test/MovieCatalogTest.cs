@@ -118,7 +118,7 @@ namespace Midterm.Test
 		[InlineData("asdf", true)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
-		public void SearchMovieTitle(string searchCriteria, bool expected)
+		public void SearchMovieTitleTest(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
@@ -139,7 +139,7 @@ namespace Midterm.Test
 		[InlineData("actin", false)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
-		public void SearchMovieGenre(string searchCriteria, bool expected)
+		public void SearchMovieGenreTest(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
@@ -157,7 +157,7 @@ namespace Midterm.Test
 		[InlineData("ridlEY53", true)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
-		public void SearchMovieDirector(string searchCriteria, bool expected)
+		public void SearchMovieDirectorTest(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
@@ -177,7 +177,7 @@ namespace Midterm.Test
 		[InlineData("twothousand", false)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
-		public void SearchMovieRuntime(string searchCriteria, bool expected)
+		public void SearchMovieRuntimeTest(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
@@ -197,7 +197,7 @@ namespace Midterm.Test
 		[InlineData("twothousand", false)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
-		public void SearchMovieYear(string searchCriteria, bool expected)
+		public void SearchMovieYearTest(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
@@ -216,7 +216,7 @@ namespace Midterm.Test
 		[InlineData("Scott", true)]
 		[InlineData("", false)]
 		[InlineData(null, false)]
-		public void SearchMovieCast(string searchCriteria, bool expected)
+		public void SearchMovieCastTest(string searchCriteria, bool expected)
 		{
 			MovieCatalog test = new MovieCatalog();
 			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
@@ -225,5 +225,21 @@ namespace Midterm.Test
 
 			Assert.Equal(expected, test.SearchMovieCast(searchCriteria, out List<Movie> results));
 		}
+
+		[Theory]
+		[InlineData("Aliens", true)]
+		[InlineData("aliens", true)]
+		[InlineData("ALIENS", true)]
+		[InlineData("Alien", false)]
+		[InlineData("", false)]
+		[InlineData(null, false)]
+		public void ContainsMovieTest(string title, bool expected)
+		{
+			MovieCatalog test = new MovieCatalog();
+			test.AddMovie(new Movie("Aliens", MovieGenre.SciFi, "James Cameron", 1986, 137, new List<string> { "Sigourney Weaver", "Michael Biehn", "Bill Paxton", "Carrie Henn" }, "Aliens are going to get you in space."));
+
+			Assert.Equal(expected, test.ContainsMovie(title));
+		}
+
 	}
 }

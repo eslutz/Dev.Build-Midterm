@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Midterm
 {
@@ -32,6 +33,21 @@ namespace Midterm
 		public Movie GetMovie(int index)
 		{
 			return _movieList[index - 1];
+		}
+
+		//Returns true if a movie title already exists in the list.
+		public bool ContainsMovie(string title)
+		{
+
+
+			if (_movieList.Any(x => x.Title.Equals(title, StringComparison.OrdinalIgnoreCase)))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		//Sorts the list of movies based on the passed argument.  All input validated before calling the method.

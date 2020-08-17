@@ -459,15 +459,25 @@ namespace Midterm
 			Console.WriteLine("\nEnter the movie title.");
 			Console.Write($"{"=>",-4}");
 			string title = Console.ReadLine();
-			while (string.IsNullOrEmpty(title))
+			bool movieExists = catalog.ContainsMovie(title);
+			while (string.IsNullOrEmpty(title) || movieExists)
 			{
-				Console.SetCursorPosition(0, 0);
-				Console.Write("Title cannot be blank.");
+				if (movieExists)
+				{
+					Console.SetCursorPosition(0, 0);
+					Console.Write("This movie already exists.");
+				}
+				else
+				{
+					Console.SetCursorPosition(0, 0);
+					Console.Write("Title cannot be blank.");
+				}
 				Console.SetCursorPosition(0, 2);
 				Console.Write(new string(' ', Console.WindowWidth));
 				Console.SetCursorPosition(0, 2);
 				Console.Write($"{"=>",-4}");
 				title = Console.ReadLine();
+				movieExists = catalog.ContainsMovie(title);
 			}
 			Console.SetCursorPosition(0, 0);
 			Console.Write(new string(' ', Console.WindowWidth));
@@ -660,15 +670,27 @@ namespace Midterm
 							Console.WriteLine("\nEnter the movie title.");
 							Console.Write($"{"=>",-4}");
 							string title = Console.ReadLine();
-							while (!catalog.GetMovie(index).EditMovie(editField, title))
+							bool movieExists = catalog.ContainsMovie(title);
+							while (!catalog.GetMovie(index).EditMovie(editField, title) || movieExists)
 							{
-								Console.SetCursorPosition(0, 5);
-								Console.Write("Title cannot be blank.");
+								if (movieExists)
+								{
+									Console.SetCursorPosition(0, 5);
+									Console.Write("This movie already exists.");
+								}
+								else
+								{
+									Console.SetCursorPosition(0, 5);
+									Console.Write("Title cannot be blank.");
+
+								}
+
 								Console.SetCursorPosition(0, 7);
 								Console.Write(new string(' ', Console.WindowWidth));
 								Console.SetCursorPosition(0, 7);
 								Console.Write($"{"=>",-4}");
 								title = Console.ReadLine();
+								movieExists = catalog.ContainsMovie(title);
 							}
 							break;
 						//Edit genre.  Validates that the user picks one of the existing genres available.
