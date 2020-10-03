@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midterm", "Midterm\Midterm.csproj", "{E1245188-11A7-4C49-B307-37CBB75AE33C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Midterm", "Midterm\Midterm.csproj", "{E1245188-11A7-4C49-B307-37CBB75AE33C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midterm.Test", "Midterm.Test\Midterm.Test.csproj", "{0CB34EED-3E5C-4AFC-B9A0-342BC7732322}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Midterm.Test", "Midterm.Test\Midterm.Test.csproj", "{0CB34EED-3E5C-4AFC-B9A0-342BC7732322}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{85687CA7-BD19-4D60-BCC1-538232649B9E}"
+	ProjectSection(SolutionItems) = preProject
+		midterm-eslutz.txt = midterm-eslutz.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

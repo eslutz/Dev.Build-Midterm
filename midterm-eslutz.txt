@@ -1,0 +1,5 @@
+- Comprehensive, well thought-out test suite
+- Had to comment out resize, segfaults the program on smaller screens
+- Great work, everything is presented nicely and works well
+
+Total: 100/100
